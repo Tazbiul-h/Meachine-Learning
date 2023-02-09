@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<!-- saved from url=(0082)https://www.javatpoint.com/machine-learning-decision-tree-classification-algorithm -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><title>Decision Tree Algorithm in Machine Learning - Javatpoint</title><link rel="SHORTCUT ICON" href="https://static.javatpoint.com/images/favicon2.png">
+<link rel="stylesheet" type="text/css" href="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/link.css" async=""><link rel="dns-prefetch" href="https://clients1.google.com/"><link rel="dns-prefetch" href="https://static.javatpoint.com/"><link rel="dns-prefetch" href="https://googleads.g.doubleclick.net/"><link rel="dns-prefetch" href="https://www.google.com/"><link rel="dns-prefetch" href="https://feedify.net/"><meta name="theme-color" content="#4CAF50"><meta property="og:title" content="Decision Tree Algorithm in Machine Learning - Javatpoint"><meta property="og:description" content="Decision Tree Algorithm in Machine Learning with Machine Learning, Machine Learning Tutorial, Machine Learning Introduction, What is Machine Learning, Data Machine Learning, Applications of Machine Learning, Machine Learning vs Artificial Intelligence etc.">
+<meta name="keywords" content="machine learning, machine learning tutorial, machine learning introduction, what is machine learning, data machine learning, applications of machine learning, machine learning vs artificial intelligence, perceptron, decision tree, dimensionality reduction, stochastic gradient descent, deep learning, history of machine learning, Features of machine learning, classification machine learning"><meta name="description" content="Decision Tree Algorithm in Machine Learning with Machine Learning, Machine Learning Tutorial, Machine Learning Introduction, What is Machine Learning, Data Machine Learning, Applications of Machine Learning, Machine Learning vs Artificial Intelligence etc."><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="canonical" href="https://www.javatpoint.com/machine-learning-decision-tree-classification-algorithm">
+<meta property="og:locale" content="en_US"><meta property="og:type" content="article"><meta name="twitter:title" property="og:title" content="Decision Tree Algorithm in Machine Learning - Javatpoint"><meta name="twitter:description" property="og:description" content="Decision Tree Algorithm in Machine Learning with Machine Learning, Machine Learning Tutorial, Machine Learning Introduction, What is Machine Learning, Data Machine Learning, Applications of Machine Learning, Machine Learning vs Artificial Intelligence etc."><meta property="og:url" content="https://www.javatpoint.com/machine-learning-decision-tree-classification-algorithm"><meta property="og:site_name" content="www.javatpoint.com"><meta name="twitter:card" content="summary"><meta name="twitter:site" content="@pagejavatpoint"><meta name="twitter:domain" content="www.javatpoint.com"><meta name="twitter:creator" content="@pagejavatpoint">
+<link href="https://www.javatpoint.com/manifest.json" rel="manifest">
+<script async="" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/async-ads.js.download"></script><script async="" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/async-ads.js.download"></script><script type="text/javascript" async="" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/ga.js.download"></script><script type="text/javascript" async="" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/f.txt"></script><script type="text/javascript" async="" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/f.txt"></script><script data-cfasync="false" type="text/javascript">(function(w, d) { var s = d.createElement('script'); s.src = '//delivery.adrecover.com/37784/adRecover.js?ts=1543562646174'; s.type = 'text/javascript'; s.async = true; (d.getElementsByTagName('head')[0] || d.getElementsByTagName('body')[0]).appendChild(s); })(window, document);</script><script src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/adRecover.js.download" type="text/javascript" async=""></script>
+
+<script data-cfasync="false" type="text/javascript">
+(function (w, d) {
+  var siteId = "37780";
+  var targetElement =
+    d.getElementsByTagName("head")[0] || d.getElementsByTagName("body")[0];
+  var s = d.createElement("script");
+  s.src = "//cdn.adpushup.com/" + siteId + "/adpushup.js";
+  s.crossOrigin = "anonymous";
+  s.type = "text/javascript";
+  s.async = true;
+  targetElement.appendChild(s);
+  function sendErrorLog(log) {
+    var eventName = "script_error";
+    log.siteId = siteId;
+    var data = btoa(JSON.stringify(log));
+    var img = document.createElement("img");
+    img.src =
+      "https://aplogger.adpushup.com/log?event=HC_" + eventName + "&data=" + data;
+  }
+  var searchParams =
+    typeof URLSearchParams === "function" &&
+    new URLSearchParams(window.location.search);
+  if (searchParams) {
+    var isDebugModeOn = searchParams.has("apDebug");
+  }
+  w.addEventListener("error", function (event) {
+    try {
+      var filename = event.filename || "";
+      if (filename.indexOf("/" + siteId + "/adpushup.js") === -1) {
+        return;
+      }
+      var error = event.error;
+      if (error) {
+        var message = error.message;
+        var stack = error.stack;
+      }
+      message = message || event.message;
+      var log = {
+        message: message,
+        stack: stack || "",
+        timestamp: Math.floor(event.timeStamp),
+        type: "uncaughterror",
+      };
+      sendErrorLog(log);
+      !isDebugModeOn && event.preventDefault();
+    } catch (error) {}
+  });
+  w.addEventListener("unhandledrejection", function (event) {
+    var reason = event.reason;
+    if (typeof reason === "object") reason = JSON.stringify(reason);
+    var log = {
+      message: reason || "no reason found",
+      timestamp: Math.floor(event.timeStamp),
+      type: "unhandledrejection",
+    };
+    sendErrorLog(log);
+    !isDebugModeOn && event.preventDefault();
+  });
+  var ga = d.createElement("script");
+  ga.src = "https://www.googletagmanager.com/gtag/js?id=G-Z0TZ7TDHS1";
+  ga.type = "text/javascript";
+  ga.async = true;
+  targetElement.appendChild(ga);
+  w.dataLayer = window.dataLayer || [];
+  w.gtag = function () {
+    window.dataLayer.push(arguments);
+  };
+  w.gtag("js", new Date());
+  w.gtag("config", "G-Z0TZ7TDHS1", {
+    custom_map: { dimension1: "siteid" },
+  });
+  w.gtag("event", "script-call", {
+    send_to: "G-Z0TZ7TDHS1",
+    siteid: siteId,
+  });
+  s.onerror = function (msg) {
+    w.gtag("event", "ad-block", {
+      send_to: "G-Z0TZ7TDHS1",
+      siteid: siteId,
+    });
+  };
+})(window, document);
+</script><script src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/adpushup.js.download" crossorigin="anonymous" type="text/javascript" async=""></script><script src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/js" type="text/javascript" async=""></script>
+<style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><script src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/cse_element__en.js.download" type="text/javascript"></script><link type="text/css" rel="stylesheet" href="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/default+en.css"><link type="text/css" rel="stylesheet" href="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/espresso.css"><script src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/cse_element__en.js.download" type="text/javascript"></script><link type="text/css" rel="stylesheet" href="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/default+en.css"><link type="text/css" rel="stylesheet" href="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/espresso.css"><style type="text/css">.gsc-control-cse{font-family:georgia, arial, serif}.gsc-control-cse .gsc-table-result{font-family:georgia, arial, serif}.gsc-refinementsGradient{background:linear-gradient(to left,rgba(255,255,255,1),rgba(255,255,255,0))}.gsc-control-cse{border-color:#FFFFFF;background-color:#FFFFFF}input.gsc-input,.gsc-input-box,.gsc-input-box-hover,.gsc-input-box-focus{border-color:#D3BCA1}.gsc-search-button-v2,.gsc-search-button-v2:hover,.gsc-search-button-v2:focus{border-color:#300D00;background-color:#461200;background-image:none;filter:none}.gsc-search-button-v2 svg{fill:#FFFFFF}.gsc-tabHeader.gsc-tabhActive,.gsc-refinementHeader.gsc-refinementhActive{color:#461200;border-color:#461200;background-color:#FFFFFF}.gsc-tabHeader.gsc-tabhInactive,.gsc-refinementHeader.gsc-refinementhInactive{color:#950000;border-color:#950000;background-color:#FFFFFF}.gsc-webResult.gsc-result,.gsc-results .gsc-imageResult{border-color:#FFFFFF;background-color:#FFFFFF}.gsc-webResult.gsc-result:hover{border-color:#FFFFFF;background-color:#FFFFFF}.gs-webResult.gs-result a.gs-title:link,.gs-webResult.gs-result a.gs-title:link b,.gs-imageResult a.gs-title:link,.gs-imageResult a.gs-title:link b{color:#950000}.gs-webResult.gs-result a.gs-title:visited,.gs-webResult.gs-result a.gs-title:visited b,.gs-imageResult a.gs-title:visited,.gs-imageResult a.gs-title:visited b{color:#950000}.gs-webResult.gs-result a.gs-title:hover,.gs-webResult.gs-result a.gs-title:hover b,.gs-imageResult a.gs-title:hover,.gs-imageResult a.gs-title:hover b{color:#950000}.gs-webResult.gs-result a.gs-title:active,.gs-webResult.gs-result a.gs-title:active b,.gs-imageResult a.gs-title:active,.gs-imageResult a.gs-title:active b{color:#950000}.gsc-cursor-page{color:#950000}a.gsc-trailing-more-results:link{color:#950000}.gs-webResult:not(.gs-no-results-result):not(.gs-error-result) .gs-snippet,.gs-fileFormatType{color:#333333}.gs-webResult div.gs-visibleUrl{color:#A25B08}.gs-webResult div.gs-visibleUrl-short{color:#A25B08}.gsc-cursor-box{border-color:#FFFFFF}.gsc-results .gsc-cursor-box .gsc-cursor-page{border-color:#950000;background-color:#FFFFFF;color:#950000}.gsc-results .gsc-cursor-box .gsc-cursor-current-page{border-color:#461200;background-color:#FFFFFF;color:#461200}.gsc-webResult.gsc-result.gsc-promotion{border-color:#FEFEDC;background-color:#FFFFCC}.gsc-completion-title{color:#950000}.gsc-completion-snippet{color:#333333}.gs-promotion a.gs-title:link,.gs-promotion a.gs-title:link *,.gs-promotion .gs-snippet a:link{color:#0000CC}.gs-promotion a.gs-title:visited,.gs-promotion a.gs-title:visited *,.gs-promotion .gs-snippet a:visited{color:#0000CC}.gs-promotion a.gs-title:hover,.gs-promotion a.gs-title:hover *,.gs-promotion .gs-snippet a:hover{color:#0000CC}.gs-promotion a.gs-title:active,.gs-promotion a.gs-title:active *,.gs-promotion .gs-snippet a:active{color:#0000CC}.gs-promotion .gs-snippet,.gs-promotion .gs-title .gs-promotion-title-right,.gs-promotion .gs-title .gs-promotion-title-right *{color:#333333}.gs-promotion .gs-visibleUrl,.gs-promotion .gs-visibleUrl-short{color:#A25B08}.gcsc-find-more-on-google{color:#950000}.gcsc-find-more-on-google-magnifier{fill:#950000}</style><style type="text/css">.gscb_a{display:inline-block;font:27px/13px arial,sans-serif}.gsst_a .gscb_a{color:#a1b9ed;cursor:pointer}.gsst_a:hover .gscb_a,.gsst_a:focus .gscb_a{color:#36c}.gsst_a{display:inline-block}.gsst_a{cursor:pointer;padding:0 4px}.gsst_a:hover{text-decoration:none!important}.gsst_b{font-size:16px;padding:0 2px;position:relative;user-select:none;-webkit-user-select:none;white-space:nowrap}.gsst_e{vertical-align:middle;opacity:0.55;}.gsst_a:hover .gsst_e,.gsst_a:focus .gsst_e{opacity:0.72;}.gsst_a:active .gsst_e{opacity:1;}.gsst_f{background:white;text-align:left}.gsst_g{background-color:white;border:1px solid #ccc;border-top-color:#d9d9d9;box-shadow:0 2px 4px rgba(0,0,0,0.2);-webkit-box-shadow:0 2px 4px rgba(0,0,0,0.2);margin:-1px -3px;padding:0 6px}.gsst_h{background-color:white;height:1px;margin-bottom:-1px;position:relative;top:-1px}.gsib_a{width:100%;padding:4px 6px 0}.gsib_a,.gsib_b{vertical-align:top}.gssb_c{border:0;position:absolute;z-index:989}.gssb_e{border:1px solid #ccc;border-top-color:#d9d9d9;box-shadow:0 2px 4px rgba(0,0,0,0.2);-webkit-box-shadow:0 2px 4px rgba(0,0,0,0.2);cursor:default}.gssb_f{visibility:hidden;white-space:nowrap}.gssb_k{border:0;display:block;position:absolute;top:0;z-index:988}.gsdd_a{border:none!important}.gsq_a{padding:0}.gssb_a{padding:0 7px}.gssb_a,.gssb_a td{white-space:nowrap;overflow:hidden;line-height:22px}#gssb_b{font-size:11px;color:#36c;text-decoration:none}#gssb_b:hover{font-size:11px;color:#36c;text-decoration:underline}.gssb_g{text-align:center;padding:8px 0 7px;position:relative}.gssb_h{font-size:15px;height:28px;margin:0.2em;-webkit-appearance:button}.gssb_i{background:#eee}.gss_ifl{visibility:hidden;padding-left:5px}.gssb_i .gss_ifl{visibility:visible}a.gssb_j{font-size:13px;color:#36c;text-decoration:none;line-height:100%}a.gssb_j:hover{text-decoration:underline}.gssb_l{height:1px;background-color:#e5e5e5}.gssb_m{color:#000;background:#fff}.gssb_a{padding:0 9px}.gsib_a{padding:5px 9px 4px 9px}.gscb_a{line-height:27px}.gssb_e{border:0}.gssb_l{margin:5px 0}input.gsc-input::-webkit-input-placeholder{font-size:14px}input.gsc-input:-moz-placeholder{font-size:14px}input.gsc-input::-moz-placeholder{font-size:14px}input.gsc-input:-ms-input-placeholder{font-size:14px}input.gsc-input:focus::-webkit-input-placeholder{color:transparent}input.gsc-input:focus:-moz-placeholder{color:transparent}input.gsc-input:focus::-moz-placeholder{color:transparent}input.gsc-input:focus:-ms-input-placeholder{color:transparent}.gssb_c .gsc-completion-container{position:static}.gssb_c{z-index:5000}.gsc-completion-container table{background:transparent;font-size:inherit;font-family:inherit}.gssb_c > tbody > tr,.gssb_c > tbody > tr > td,.gssb_d,.gssb_d > tbody > tr,.gssb_d > tbody > tr > td,.gssb_e,.gssb_e > tbody > tr,.gssb_e > tbody > tr > td{padding:0;margin:0;border:0}.gssb_a table,.gssb_a table tr,.gssb_a table tr td{padding:0;margin:0;border:0}</style><style type="text/css">.gscb_a{display:inline-block;font:27px/13px arial,sans-serif}.gsst_a .gscb_a{color:#a1b9ed;cursor:pointer}.gsst_a:hover .gscb_a,.gsst_a:focus .gscb_a{color:#36c}.gsst_a{display:inline-block}.gsst_a{cursor:pointer;padding:0 4px}.gsst_a:hover{text-decoration:none!important}.gsst_b{font-size:16px;padding:0 2px;position:relative;user-select:none;-webkit-user-select:none;white-space:nowrap}.gsst_e{vertical-align:middle;opacity:0.55;}.gsst_a:hover .gsst_e,.gsst_a:focus .gsst_e{opacity:0.72;}.gsst_a:active .gsst_e{opacity:1;}.gsst_f{background:white;text-align:left}.gsst_g{background-color:white;border:1px solid #ccc;border-top-color:#d9d9d9;box-shadow:0 2px 4px rgba(0,0,0,0.2);-webkit-box-shadow:0 2px 4px rgba(0,0,0,0.2);margin:-1px -3px;padding:0 6px}.gsst_h{background-color:white;height:1px;margin-bottom:-1px;position:relative;top:-1px}.gsib_a{width:100%;padding:4px 6px 0}.gsib_a,.gsib_b{vertical-align:top}.gssb_c{border:0;position:absolute;z-index:989}.gssb_e{border:1px solid #ccc;border-top-color:#d9d9d9;box-shadow:0 2px 4px rgba(0,0,0,0.2);-webkit-box-shadow:0 2px 4px rgba(0,0,0,0.2);cursor:default}.gssb_f{visibility:hidden;white-space:nowrap}.gssb_k{border:0;display:block;position:absolute;top:0;z-index:988}.gsdd_a{border:none!important}.gsq_a{padding:0}.gssb_a{padding:0 7px}.gssb_a,.gssb_a td{white-space:nowrap;overflow:hidden;line-height:22px}#gssb_b{font-size:11px;color:#36c;text-decoration:none}#gssb_b:hover{font-size:11px;color:#36c;text-decoration:underline}.gssb_g{text-align:center;padding:8px 0 7px;position:relative}.gssb_h{font-size:15px;height:28px;margin:0.2em;-webkit-appearance:button}.gssb_i{background:#eee}.gss_ifl{visibility:hidden;padding-left:5px}.gssb_i .gss_ifl{visibility:visible}a.gssb_j{font-size:13px;color:#36c;text-decoration:none;line-height:100%}a.gssb_j:hover{text-decoration:underline}.gssb_l{height:1px;background-color:#e5e5e5}.gssb_m{color:#000;background:#fff}.gssb_a{padding:0 9px}.gsib_a{padding:5px 9px 4px 9px}.gscb_a{line-height:27px}.gssb_e{border:0}.gssb_l{margin:5px 0}input.gsc-input::-webkit-input-placeholder{font-size:14px}input.gsc-input:-moz-placeholder{font-size:14px}input.gsc-input::-moz-placeholder{font-size:14px}input.gsc-input:-ms-input-placeholder{font-size:14px}input.gsc-input:focus::-webkit-input-placeholder{color:transparent}input.gsc-input:focus:-moz-placeholder{color:transparent}input.gsc-input:focus::-moz-placeholder{color:transparent}input.gsc-input:focus:-ms-input-placeholder{color:transparent}.gssb_c .gsc-completion-container{position:static}.gssb_c{z-index:5000}.gsc-completion-container table{background:transparent;font-size:inherit;font-family:inherit}.gssb_c > tbody > tr,.gssb_c > tbody > tr > td,.gssb_d,.gssb_d > tbody > tr,.gssb_d > tbody > tr > td,.gssb_e,.gssb_e > tbody > tr,.gssb_e > tbody > tr > td{padding:0;margin:0;border:0}.gssb_a table,.gssb_a table tr,.gssb_a table tr td{padding:0;margin:0;border:0}</style><style type="text/css">.gsc-control-cse{font-family:georgia, arial, serif}.gsc-control-cse .gsc-table-result{font-family:georgia, arial, serif}.gsc-refinementsGradient{background:linear-gradient(to left,rgba(255,255,255,1),rgba(255,255,255,0))}.gsc-control-cse{border-color:#FFFFFF;background-color:#FFFFFF}input.gsc-input,.gsc-input-box,.gsc-input-box-hover,.gsc-input-box-focus{border-color:#D3BCA1}.gsc-search-button-v2,.gsc-search-button-v2:hover,.gsc-search-button-v2:focus{border-color:#300D00;background-color:#461200;background-image:none;filter:none}.gsc-search-button-v2 svg{fill:#FFFFFF}.gsc-tabHeader.gsc-tabhActive,.gsc-refinementHeader.gsc-refinementhActive{color:#461200;border-color:#461200;background-color:#FFFFFF}.gsc-tabHeader.gsc-tabhInactive,.gsc-refinementHeader.gsc-refinementhInactive{color:#950000;border-color:#950000;background-color:#FFFFFF}.gsc-webResult.gsc-result,.gsc-results .gsc-imageResult{border-color:#FFFFFF;background-color:#FFFFFF}.gsc-webResult.gsc-result:hover{border-color:#FFFFFF;background-color:#FFFFFF}.gs-webResult.gs-result a.gs-title:link,.gs-webResult.gs-result a.gs-title:link b,.gs-imageResult a.gs-title:link,.gs-imageResult a.gs-title:link b{color:#950000}.gs-webResult.gs-result a.gs-title:visited,.gs-webResult.gs-result a.gs-title:visited b,.gs-imageResult a.gs-title:visited,.gs-imageResult a.gs-title:visited b{color:#950000}.gs-webResult.gs-result a.gs-title:hover,.gs-webResult.gs-result a.gs-title:hover b,.gs-imageResult a.gs-title:hover,.gs-imageResult a.gs-title:hover b{color:#950000}.gs-webResult.gs-result a.gs-title:active,.gs-webResult.gs-result a.gs-title:active b,.gs-imageResult a.gs-title:active,.gs-imageResult a.gs-title:active b{color:#950000}.gsc-cursor-page{color:#950000}a.gsc-trailing-more-results:link{color:#950000}.gs-webResult:not(.gs-no-results-result):not(.gs-error-result) .gs-snippet,.gs-fileFormatType{color:#333333}.gs-webResult div.gs-visibleUrl{color:#A25B08}.gs-webResult div.gs-visibleUrl-short{color:#A25B08}.gsc-cursor-box{border-color:#FFFFFF}.gsc-results .gsc-cursor-box .gsc-cursor-page{border-color:#950000;background-color:#FFFFFF;color:#950000}.gsc-results .gsc-cursor-box .gsc-cursor-current-page{border-color:#461200;background-color:#FFFFFF;color:#461200}.gsc-webResult.gsc-result.gsc-promotion{border-color:#FEFEDC;background-color:#FFFFCC}.gsc-completion-title{color:#950000}.gsc-completion-snippet{color:#333333}.gs-promotion a.gs-title:link,.gs-promotion a.gs-title:link *,.gs-promotion .gs-snippet a:link{color:#0000CC}.gs-promotion a.gs-title:visited,.gs-promotion a.gs-title:visited *,.gs-promotion .gs-snippet a:visited{color:#0000CC}.gs-promotion a.gs-title:hover,.gs-promotion a.gs-title:hover *,.gs-promotion .gs-snippet a:hover{color:#0000CC}.gs-promotion a.gs-title:active,.gs-promotion a.gs-title:active *,.gs-promotion .gs-snippet a:active{color:#0000CC}.gs-promotion .gs-snippet,.gs-promotion .gs-title .gs-promotion-title-right,.gs-promotion .gs-title .gs-promotion-title-right *{color:#333333}.gs-promotion .gs-visibleUrl,.gs-promotion .gs-visibleUrl-short{color:#A25B08}.gcsc-find-more-on-google{color:#950000}.gcsc-find-more-on-google-magnifier{fill:#950000}</style></head>
+<body onload="highlightlink()" data-new-gr-c-s-check-loaded="14.1093.0" data-gr-ext-installed="" cz-shortcut-listen="true">
+
+<button onclick="topFunction()" id="myBtn" style="display: block;">&#8679; SCROLL TO TOP</button>
+<div id="page" style="margin:-8px;background-color:#f5f5f4;"><div id="container"> <div class="header"><table style="width:100%;margin-bottom:5px"> <tbody><tr> <td> <div style="clear:both;float:left;width:230px;margin-top:15px;margin-left:20px"> <a href="https://www.javatpoint.com/"><img src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/jtp_logo.png" alt="Javatpoint Logo"></a> </div> <div style="float:left;width:60%;"><script> (function() { var cx = '005383125436438536544:y1edweedxwi'; var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true; gcse.src = 'https://cse.google.com/cse.js?cx=' + cx; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s); })();</script><div id="___gcse_0"><div class="gsc-control-cse gsc-control-cse-en"><div class="gsc-control-wrapper-cse" dir="ltr"><form class="gsc-search-box gsc-search-box-tools" accept-charset="utf-8"><table cellspacing="0" cellpadding="0" role="presentation" class="gsc-search-box"><tbody><tr><td class="gsc-input"><div class="gsc-input-box" id="gsc-iw-id1"><table cellspacing="0" cellpadding="0" role="presentation" id="gs_id50" class="gstl_50 gsc-input" style="width: 100%; padding: 0px;"><tbody><tr><td id="gs_tti50" class="gsib_a"><input autocomplete="off" type="text" size="10" class="gsc-input" name="search" title="search" aria-label="search" id="gsc-i-id1" dir="ltr" spellcheck="false" style="width: 100%; padding: 0px; border: none; margin: 0px; height: auto; outline: none;"></td><td class="gsib_b"><div class="gsst_b" id="gs_st50" dir="ltr"><a class="gsst_a" href="javascript:void(0)" title="Clear search box" role="button" style="display: none;"><span class="gscb_a" id="gs_cb50" aria-hidden="true">×</span></a></div></td></tr></tbody></table></div></td><td class="gsc-search-button"><button class="gsc-search-button gsc-search-button-v2"><svg width="13" height="13" viewBox="0 0 13 13"><title>search</title><path d="m4.8495 7.8226c0.82666 0 1.5262-0.29146 2.0985-0.87438 0.57232-0.58292 0.86378-1.2877 0.87438-2.1144 0.010599-0.82666-0.28086-1.5262-0.87438-2.0985-0.59352-0.57232-1.293-0.86378-2.0985-0.87438-0.8055-0.010599-1.5103 0.28086-2.1144 0.87438-0.60414 0.59352-0.8956 1.293-0.87438 2.0985 0.021197 0.8055 0.31266 1.5103 0.87438 2.1144 0.56172 0.60414 1.2665 0.8956 2.1144 0.87438zm4.4695 0.2115 3.681 3.6819-1.259 1.284-3.6817-3.7 0.0019784-0.69479-0.090043-0.098846c-0.87973 0.76087-1.92 1.1413-3.1207 1.1413-1.3553 0-2.5025-0.46363-3.4417-1.3909s-1.4088-2.0686-1.4088-3.4239c0-1.3553 0.4696-2.4966 1.4088-3.4239 0.9392-0.92727 2.0864-1.3969 3.4417-1.4088 1.3553-0.011889 2.4906 0.45771 3.406 1.4088 0.9154 0.95107 1.379 2.0924 1.3909 3.4239 0 1.2126-0.38043 2.2588-1.1413 3.1385l0.098834 0.090049z"></path></svg></button></td><td class="gsc-clear-button"><div class="gsc-clear-button" title="clear results">&nbsp;</div></td></tr></tbody></table></form><div class="gsc-results-wrapper-nooverlay"><div class="gsc-positioningWrapper"><div class="gsc-tabsAreaInvisible"><div aria-label="refinement" role="tab" class="gsc-tabHeader gsc-inline-block gsc-tabhActive">Custom Search</div><span class="gs-spacer"> </span></div></div><div class="gsc-positioningWrapper"><div class="gsc-refinementsAreaInvisible"></div></div><div class="gsc-above-wrapper-area-invisible"><table cellspacing="0" cellpadding="0" role="presentation" class="gsc-above-wrapper-area-container"><tbody><tr><td class="gsc-result-info-container"><div class="gsc-result-info-invisible"></div></td><td class="gsc-orderby-container"><div class="gsc-orderby-invisible"><div class="gsc-orderby-label gsc-inline-block">Sort by:</div><div class="gsc-option-menu-container gsc-inline-block"><div class="gsc-selected-option-container gsc-inline-block"><div class="gsc-selected-option">Relevance</div><div class="gsc-option-selector"></div></div><div class="gsc-option-menu-invisible"><div class="gsc-option-menu-item gsc-option-menu-item-highlighted"><div class="gsc-option">Relevance</div></div><div class="gsc-option-menu-item"><div class="gsc-option">Date</div></div></div></div></div></td></tr></tbody></table></div><div class="gsc-adBlockInvisible"></div><div class="gsc-wrapper"><div class="gsc-adBlockInvisible"></div><div class="gsc-resultsbox-invisible"><div class="gsc-resultsRoot gsc-tabData gsc-tabdActive"><div><div class="gsc-expansionArea"></div></div></div></div></div></div></div></div></div> </div> </td> </tr></tbody></table> </div>
+<div class="headermobile">
+<div style="margin-top:10px;padding:0px;text-align:left;">
+<span style="float:left"><input type="image" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/menuhome64.png" alt="Go To Top" onclick="showmenu()"></span>
+<span style="float:left"><a href="https://www.javatpoint.com/"><img src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/jtp_logo(1).png" alt="Javatpoint Logo"></a></span>
+</div>
+<div style="margin:0px;padding:0px;clear:both">
+<script>
+  (function() {
+    var cx = '005383125436438536544:y1edweedxwi';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<div id="___gcse_1"><div class="gsc-control-cse gsc-control-cse-en"><div class="gsc-control-wrapper-cse" dir="ltr"><form class="gsc-search-box gsc-search-box-tools" accept-charset="utf-8"><table cellspacing="0" cellpadding="0" role="presentation" class="gsc-search-box"><tbody><tr><td class="gsc-input"><div class="gsc-input-box" id="gsc-iw-id2"><table cellspacing="0" cellpadding="0" role="presentation" id="gs_id51" class="gstl_51 gsc-input" style="width: 100%; padding: 0px;"><tbody><tr><td id="gs_tti51" class="gsib_a"><input autocomplete="off" type="text" size="10" class="gsc-input" name="search" title="search" aria-label="search" id="gsc-i-id2" style="width: 100%; padding: 0px; border: none; margin: 0px; height: auto; outline: none;" dir="ltr" spellcheck="false"></td><td class="gsib_b"><div class="gsst_b" id="gs_st51" dir="ltr"><a class="gsst_a" href="javascript:void(0)" style="display: none;" title="Clear search box" role="button"><span class="gscb_a" id="gs_cb51" aria-hidden="true">×</span></a></div></td></tr></tbody></table></div></td><td class="gsc-search-button"><button class="gsc-search-button gsc-search-button-v2"><svg width="13" height="13" viewBox="0 0 13 13"><title>search</title><path d="m4.8495 7.8226c0.82666 0 1.5262-0.29146 2.0985-0.87438 0.57232-0.58292 0.86378-1.2877 0.87438-2.1144 0.010599-0.82666-0.28086-1.5262-0.87438-2.0985-0.59352-0.57232-1.293-0.86378-2.0985-0.87438-0.8055-0.010599-1.5103 0.28086-2.1144 0.87438-0.60414 0.59352-0.8956 1.293-0.87438 2.0985 0.021197 0.8055 0.31266 1.5103 0.87438 2.1144 0.56172 0.60414 1.2665 0.8956 2.1144 0.87438zm4.4695 0.2115 3.681 3.6819-1.259 1.284-3.6817-3.7 0.0019784-0.69479-0.090043-0.098846c-0.87973 0.76087-1.92 1.1413-3.1207 1.1413-1.3553 0-2.5025-0.46363-3.4417-1.3909s-1.4088-2.0686-1.4088-3.4239c0-1.3553 0.4696-2.4966 1.4088-3.4239 0.9392-0.92727 2.0864-1.3969 3.4417-1.4088 1.3553-0.011889 2.4906 0.45771 3.406 1.4088 0.9154 0.95107 1.379 2.0924 1.3909 3.4239 0 1.2126-0.38043 2.2588-1.1413 3.1385l0.098834 0.090049z"></path></svg></button></td><td class="gsc-clear-button"><div class="gsc-clear-button" title="clear results">&nbsp;</div></td></tr></tbody></table></form><div class="gsc-results-wrapper-nooverlay"><div class="gsc-positioningWrapper"><div class="gsc-tabsAreaInvisible"><div aria-label="refinement" role="tab" class="gsc-tabHeader gsc-inline-block gsc-tabhActive">Custom Search</div><span class="gs-spacer"> </span></div></div><div class="gsc-positioningWrapper"><div class="gsc-refinementsAreaInvisible"></div></div><div class="gsc-above-wrapper-area-invisible"><table cellspacing="0" cellpadding="0" role="presentation" class="gsc-above-wrapper-area-container"><tbody><tr><td class="gsc-result-info-container"><div class="gsc-result-info-invisible"></div></td><td class="gsc-orderby-container"><div class="gsc-orderby-invisible"><div class="gsc-orderby-label gsc-inline-block">Sort by:</div><div class="gsc-option-menu-container gsc-inline-block"><div class="gsc-selected-option-container gsc-inline-block"><div class="gsc-selected-option">Relevance</div><div class="gsc-option-selector"></div></div><div class="gsc-option-menu-invisible"><div class="gsc-option-menu-item gsc-option-menu-item-highlighted"><div class="gsc-option">Relevance</div></div><div class="gsc-option-menu-item"><div class="gsc-option">Date</div></div></div></div></div></td></tr></tbody></table></div><div class="gsc-adBlockInvisible"></div><div class="gsc-wrapper"><div class="gsc-adBlockInvisible"></div><div class="gsc-resultsbox-invisible"><div class="gsc-resultsRoot gsc-tabData gsc-tabdActive"><div><div class="gsc-expansionArea"></div></div></div></div></div></div></div></div></div>
+
+</div>
+</div>
+<div id="link" style="clear:both;z-index:999"> <div class="ddsmoothmenu">
+<ul>
+<li><a href="https://www.javatpoint.com/">Home</a></li>
+<li><a href="https://www.javatpoint.com/artificial-intelligence-tutorial">AI</a></li>
+<li><a href="https://www.javatpoint.com/machine-learning" class="selected">Machine Learning</a></li>
+<li><a href="https://www.javatpoint.com/dbms-tutorial">DBMS</a></li>
+<li><a href="https://www.javatpoint.com/java-tutorial">Java</a></li>
+<li><a href="https://www.javatpoint.com/blockchain-tutorial">Blockchain</a></li>
+<li><a href="https://www.javatpoint.com/control-system-tutorial">Control System</a></li>
+<li><a href="https://www.javatpoint.com/selenium-tutorial">Selenium</a></li>
+<li><a href="https://www.javatpoint.com/html-tutorial">HTML</a></li>
+<li><a href="https://www.javatpoint.com/css-tutorial">CSS</a></li>
+<li><a href="https://www.javatpoint.com/javascript-tutorial">JavaScript</a></li>
+<li><a href="https://www.javatpoint.com/data-structure-tutorial">DS</a></li>
+<li><a href="https://www.javatpoint.com/jquery-tutorial">jQuery</a></li>
+<li><a href="https://www.javatpoint.com/examaccess">Quiz</a></li>
+<li><a href="https://www.javatpoint.com/corejava-interview-questions">Interview Q</a></li>
+<li><a href="https://www.javatpoint.com/comment.jsp">Comment</a></li>
+<li><a href="https://www.javatpoint.com/forum">Forum</a></li>
+</ul>
+<br style="clear: left">
+</div></div>
+<div class="mobilemenu" style="clear:both">
+
+<ins class="adPushupAds" data-adpcontrol="hqdgs" data-ver="2" data-siteid="37780" data-ac="PHNjcmlwdCBhc3luYyBzcmM9Ii8vcGFnZWFkMi5nb29nbGVzeW5kaWNhdGlvbi5jb20vcGFnZWFkL2pzL2Fkc2J5Z29vZ2xlLmpzIj48L3NjcmlwdD4KPCEtLSBDbV8zMDB4MjUwX01vYl8xNC85IC0tPgo8aW5zIGNsYXNzPSJhZHNieWdvb2dsZSIKICAgICBzdHlsZT0iZGlzcGxheTppbmxpbmUtYmxvY2s7d2lkdGg6MzAwcHg7aGVpZ2h0OjI1MHB4IgogICAgIGRhdGEtYWQtY2xpZW50PSJjYS1wdWItNDY5OTg1ODU0OTAyMzM4MiIKICAgICBkYXRhLWFkLXNsb3Q9IjcwMTQyNzI1MTkiPjwvaW5zPgo8c2NyaXB0PgooYWRzYnlnb29nbGUgPSB3aW5kb3cuYWRzYnlnb29nbGUgfHwgW10pLnB1c2goe30pOwo8L3NjcmlwdD4=" data-push="1"></ins><script data-cfasync="false" type="text/javascript">(function (w, d) { for (var i = 0, j = d.getElementsByTagName("ins"), k = j[i]; i < j.length; k = j[++i]){ if(k.className == "adPushupAds" && k.getAttribute("data-push") != "1") { ((w.adpushup = w.adpushup || {}).control = (w.adpushup.control || [])).push(k); k.setAttribute("data-push", "1");} } })(window, document);</script>
+</div>
+<div id="menu">
+<div class="leftmenu2">
+<h2 class="spanh2"><span class="spanh2">Machine Learning</span></h2>
+</div>
+<div class="leftmenu">
+<a href="https://www.javatpoint.com/machine-learning">Machine Learning Tutorial</a>
+<a href="https://www.javatpoint.com/applications-of-machine-learning">Machine Learning Applications</a>
+<a href="https://www.javatpoint.com/machine-learning-life-cycle">Life cycle of Machine Learning</a>
+<a href="https://www.javatpoint.com/machine-learning-installing-anaconda-and-python">Install Anaconda &amp; Python</a>
+<a href="https://www.javatpoint.com/difference-between-artificial-intelligence-and-machine-learning">AI vs Machine Learning</a>
+<a href="https://www.javatpoint.com/how-to-get-datasets-for-machine-learning">How to Get Datasets</a>
+<a href="https://www.javatpoint.com/data-preprocessing-machine-learning">Data Preprocessing</a>
+<a href="https://www.javatpoint.com/supervised-machine-learning">Supervised Machine Learning</a>
+<a href="https://www.javatpoint.com/unsupervised-machine-learning">Unsupervised Machine Learning</a>
+<a href="https://www.javatpoint.com/difference-between-supervised-and-unsupervised-learning">Supervised vs Unsupervised Learning</a>
+</div>
+<div class="leftmenu2">
+<h2 class="spanh2"><span class="spanh2">Supervised Learning</span></h2>
+</div>
+<div class="leftmenu">
+<a href="https://www.javatpoint.com/regression-analysis-in-machine-learning">Regression Analysis</a>
+<a href="https://www.javatpoint.com/linear-regression-in-machine-learning">Linear Regression</a>
+<a href="https://www.javatpoint.com/simple-linear-regression-in-machine-learning">Simple Linear Regression</a>
+<a href="https://www.javatpoint.com/multiple-linear-regression-in-machine-learning">Multiple Linear Regression</a>
+<a href="https://www.javatpoint.com/backward-elimination-in-machine-learning">Backward Elimination</a>
+<a href="https://www.javatpoint.com/machine-learning-polynomial-regression">Polynomial Regression</a>
+</div>
+<div class="leftmenu2">
+<h2 class="spanh2"><span class="spanh2">Classification</span></h2>
+</div>
+<div class="leftmenu">
+<a href="https://www.javatpoint.com/classification-algorithm-in-machine-learning">Classification Algorithm</a>
+<a href="https://www.javatpoint.com/logistic-regression-in-machine-learning">Logistic Regression</a>
+<a href="https://www.javatpoint.com/k-nearest-neighbor-algorithm-for-machine-learning">K-NN Algorithm</a>
+<a href="https://www.javatpoint.com/machine-learning-support-vector-machine-algorithm">Support Vector Machine Algorithm</a>
+<a href="https://www.javatpoint.com/machine-learning-naive-bayes-classifier">Naïve Bayes Classifier</a>
+</div>
+<div class="leftmenu2">
+<h2 class="spanh2"><span class="spanh2">Miscellaneous</span></h2>
+</div>
+<div class="leftmenu">
+<a href="https://www.javatpoint.com/regression-vs-classification-in-machine-learning">Classification vs Regression</a>
+<a href="https://www.javatpoint.com/linear-regression-vs-logistic-regression-in-machine-learning">Linear Regression vs Logistic Regression</a>
+<a href="https://www.javatpoint.com/machine-learning-decision-tree-classification-algorithm" style="color: black;"><strong>Decision Tree Classification Algorithm</strong> <img src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/open-12.png" alt="open link"></a>
+<a href="https://www.javatpoint.com/machine-learning-random-forest-algorithm">Random Forest Algorithm</a>
+<a href="https://www.javatpoint.com/clustering-in-machine-learning">Clustering in Machine Learning</a>
+<a href="https://www.javatpoint.com/hierarchical-clustering-in-machine-learning">Hierarchical Clustering in Machine Learning</a>
+<a href="https://www.javatpoint.com/k-means-clustering-algorithm-in-machine-learning">K-Means Clustering Algorithm</a>
+<a href="https://www.javatpoint.com/apriori-algorithm-in-machine-learning">Apriori Algorithm in Machine Learning</a>
+<a href="https://www.javatpoint.com/association-rule-learning">Association Rule Learning</a>
+<a href="https://www.javatpoint.com/confusion-matrix-in-machine-learning">Confusion Matrix</a>
+<a href="https://www.javatpoint.com/cross-validation-in-machine-learning">Cross-Validation</a>
+<a href="https://www.javatpoint.com/data-science-vs-machine-learning">Data Science vs Machine Learning</a>
+<a href="https://www.javatpoint.com/machine-learning-vs-deep-learning">Machine Learning vs Deep Learning</a>
+<a href="https://www.javatpoint.com/dimensionality-reduction-technique">Dimensionality Reduction Technique</a>
+<a href="https://www.javatpoint.com/machine-learning-algorithms">Machine Learning Algorithms</a>
+<a href="https://www.javatpoint.com/overfitting-and-underfitting-in-machine-learning">Overfitting &amp; Underfitting</a>
+<a href="https://www.javatpoint.com/principal-component-analysis">Principal Component Analysis</a>
+<a href="https://www.javatpoint.com/machine-learning-p-value">What is P-Value</a>
+<a href="https://www.javatpoint.com/regularization-in-machine-learning">Regularization in Machine Learning</a>
+<a href="https://www.javatpoint.com/examples-of-machine-learning">Examples of Machine Learning</a>
+<a href="https://www.javatpoint.com/semi-supervised-learning">Semi-Supervised Learning</a>
+<a href="https://www.javatpoint.com/essential-mathematics-for-machine-learning">Essential Mathematics for Machine Learning</a>
+<a href="https://www.javatpoint.com/overfitting-in-machine-learning">Overfitting in Machine Learning</a>
+<a href="https://www.javatpoint.com/types-of-encoding-techniques">Types of Encoding Techniques</a>
+<a href="https://www.javatpoint.com/feature-selection-techniques-in-machine-learning">Feature Selection Techniques in Machine Learning</a>
+<a href="https://www.javatpoint.com/bias-and-variance-in-machine-learning">Bias and Variance in Machine Learning</a>
+<a href="https://www.javatpoint.com/machine-learning-tools">Machine Learning Tools</a>
+<a href="https://www.javatpoint.com/prerequisites-for-machine-learning">Prerequisites for Machine Learning</a>
+<a href="https://www.javatpoint.com/gradient-descent-in-machine-learning">Gradient Descent in Machine Learning</a>
+<a href="https://www.javatpoint.com/machine-learning-experts-salary-in-india">Machine Learning Experts Salary in India</a>
+<a href="https://www.javatpoint.com/machine-learning-models">Machine Learning Models</a>
+<a href="https://www.javatpoint.com/machine-learning-books">Machine Learning Books</a>
+<a href="https://www.javatpoint.com/linear-algebra-for-machine-learning">Linear Algebra for Machine learning</a>
+<a href="https://www.javatpoint.com/types-of-machine-learning">Types of Machine Learning</a>
+<a href="https://www.javatpoint.com/feature-engineering-for-machine-learning">Feature Engineering for Machine Learning</a>
+<a href="https://www.javatpoint.com/top-10-machine-learning-courses-in-2021">Top 10 Machine Learning Courses in 2021</a>
+<a href="https://www.javatpoint.com/epoch-in-machine-learning">Epoch in Machine Learning</a>
+<a href="https://www.javatpoint.com/machine-learning-with-anomaly-detection">Machine Learning with Anomaly Detection</a>
+<a href="https://www.javatpoint.com/epoch">What is Epoch</a>
+<a href="https://www.javatpoint.com/cost-function-in-machine-learning">Cost Function in Machine Learning</a>
+<a href="https://www.javatpoint.com/bayes-theorem-in-machine-learning">Bayes Theorem in Machine learning</a>
+<a href="https://www.javatpoint.com/perceptron-in-machine-learning">Perceptron in Machine Learning</a>
+<a href="https://www.javatpoint.com/entropy-in-machine-learning">Entropy in Machine Learning</a>
+<a href="https://www.javatpoint.com/issues-in-machine-learning">Issues in Machine Learning</a>
+<a href="https://www.javatpoint.com/precision-and-recall-in-machine-learning">Precision and Recall in Machine Learning</a>
+<a href="https://www.javatpoint.com/genetic-algorithm-in-machine-learning">Genetic Algorithm in Machine Learning</a>
+<a href="https://www.javatpoint.com/normalization-in-machine-learning">Normalization in Machine Learning</a>
+<a href="https://www.javatpoint.com/adversarial-machine-learning">Adversarial Machine Learning</a>
+<a href="https://www.javatpoint.com/basic-concepts-in-machine-learning">Basic Concepts in Machine Learning</a>
+<a href="https://www.javatpoint.com/machine-learning-techniques">Machine Learning Techniques</a>
+<a href="https://www.javatpoint.com/automl">AutoML</a>
+<a href="https://www.javatpoint.com/demystifying-machine-learning">Demystifying Machine Learning</a>
+<a href="https://www.javatpoint.com/challenges-of-machine-learning">Challenges of Machine Learning</a>
+<a href="https://www.javatpoint.com/model-parameter-vs-hyperparameter">Model Parameter vs Hyperparameter</a>
+<a href="https://www.javatpoint.com/hyperparameters-in-machine-learning">Hyperparameters in Machine Learning</a>
+<a href="https://www.javatpoint.com/importance-of-machine-learning">Importance of Machine Learning</a>
+<a href="https://www.javatpoint.com/machine-learning-and-cloud-computing">Machine Learning and Cloud Computing</a>
+<a href="https://www.javatpoint.com/anti-money-laundering-using-machine-learning">Anti-Money Laundering using Machine Learning</a>
+<a href="https://www.javatpoint.com/data-science-vs-machine-learning-vs-big-data">Data Science Vs. Machine Learning Vs. Big Data</a>
+<a href="https://www.javatpoint.com/popular-machine-learning-platforms">Popular Machine Learning Platforms</a>
+<a href="https://www.javatpoint.com/deep-learning-vs-machine-learning-vs-artificial-intelligence">Deep learning vs. Machine learning vs. Artificial Intelligence</a>
+<a href="https://www.javatpoint.com/machine-learning-application-in-defense-military">Machine Learning Application in Defense/Military</a>
+<a href="https://www.javatpoint.com/machine-learning-applications-in-media">Machine Learning Applications in Media</a>
+<a href="https://www.javatpoint.com/how-can-machine-learning-be-used-with-blockchain">How can Machine Learning be used with Blockchain</a>
+<a href="https://www.javatpoint.com/prerequisites-to-learn-artificial-intelligence-and-machine-learning">Prerequisites to Learn Artificial Intelligence and Machine Learning</a>
+<a href="https://www.javatpoint.com/list-of-machine-learning-companies-in-india">List of Machine Learning Companies in India</a>
+<a href="https://www.javatpoint.com/mathematics-courses-for-machine-learning">Mathematics Courses for Machine Learning</a>
+<a href="https://www.javatpoint.com/probability-and-statistics-books-for-machine-learning">Probability and Statistics Books for Machine Learning</a>
+<a href="https://www.javatpoint.com/risks-of-machine-learning">Risks of Machine Learning</a>
+<a href="https://www.javatpoint.com/best-laptops-for-machine-learning">Best Laptops for Machine Learning</a>
+<a href="https://www.javatpoint.com/machine-learning-in-finance">Machine Learning in Finance</a>
+<a href="https://www.javatpoint.com/lead-generation-using-machine-learning">Lead Generation using Machine Learning</a>
+<a href="https://www.javatpoint.com/machine-learning-and-data-science-certification">Machine Learning and Data Science Certification</a>
+<a href="https://www.javatpoint.com/what-is-big-data-and-machine-learning">What is Big Data and Machine Learning</a>
+<a href="https://www.javatpoint.com/how-to-save-a-machine-learning-model">How to Save a Machine Learning Model</a>
+<a href="https://www.javatpoint.com/machine-learning-model-with-teachable-machine">Machine Learning Model with Teachable Machine</a>
+<a href="https://www.javatpoint.com/data-structure-for-machine-learning">Data Structure for Machine Learning</a>
+<a href="https://www.javatpoint.com/hypothesis-in-machine-learning">Hypothesis in Machine Learning</a>
+<a href="https://www.javatpoint.com/gaussian-discriminant-analysis">Gaussian Discriminant Analysis</a>
+<a href="https://www.javatpoint.com/how-machine-learning-is-used-by-famous-companies">How Machine Learning is used by Famous Companies</a>
+<a href="https://www.javatpoint.com/transfer-learning-in-machine-learning">Introduction to Transfer Learning in ML</a>
+<a href="https://www.javatpoint.com/linear-discriminant-analysis-in-machine-learning">LDA in Machine Learning</a>
+<a href="https://www.javatpoint.com/stacking-in-machine-learning">Stacking in Machine Learning</a>
+<a href="https://www.javatpoint.com/complement-naive-bayes-algorithm">CNB Algorithm</a>
+<a href="https://www.javatpoint.com/deploy-a-machine-learning-model-using-streamlit-library">Deploy a Machine Learning Model using Streamlit Library</a>
+<a href="https://www.javatpoint.com/different-types-of-methods-for-clustering-algorithms-in-ml">Different Types of Methods for Clustering Algorithms in ML</a>
+<a href="https://www.javatpoint.com/em-algorithm-in-machine-learning">EM Algorithm in Machine Learning</a>
+<a href="https://www.javatpoint.com/machine-learning-pipeline">Machine Learning Pipeline</a>
+<a href="https://www.javatpoint.com/exploitation-and-exploration-in-machine-learning">Exploitation and Exploration in Machine Learning</a>
+<a href="https://www.javatpoint.com/machine-learning-for-trading">Machine Learning for Trading</a>
+<a href="https://www.javatpoint.com/data-augmentation-a-tactic-to-improve-the-performance-of-ml">Data Augmentation: A Tactic to Improve the Performance of ML</a>
+<a href="https://www.javatpoint.com/difference-between-coding-in-data-science-and-machine-learning">Difference Between Coding in Data Science and Machine Learning</a>
+<a href="https://www.javatpoint.com/data-labelling-in-machine-learning">Data Labelling in Machine Learning</a>
+<a href="https://www.javatpoint.com/impact-of-deep-learning-on-personalization">Impact of Deep Learning on Personalization</a>
+<a href="https://www.javatpoint.com/major-business-applications-of-cnvolutional-neural-network">Major Business Applications of Convolutional Neural Network</a>
+<a href="https://www.javatpoint.com/mini-batch-k-means-clustering-algorithm">Mini Batch K-means clustering algorithm</a>
+<a href="https://www.javatpoint.com/what-is-multilevel-modelling">What is Multilevel Modelling</a>
+<a href="https://www.javatpoint.com/gbm-in-machine-learning">GBM in Machine Learning</a>
+<a href="https://www.javatpoint.com/back-propagation-through-time-rnn">Back Propagation through time - RNN</a>
+<a href="https://www.javatpoint.com/data-preparation-in-machine-learning">Data Preparation in Machine Learning</a>
+<a href="https://www.javatpoint.com/predictive-maintenance-using-machine-learning">Predictive Maintenance Using Machine Learning</a>
+<a href="https://www.javatpoint.com/nlp-analysis-of-restaurant-reviews">NLP Analysis of Restaurant Reviews</a>
+<a href="https://www.javatpoint.com/what-are-lstm-networks">What are LSTM Networks</a>
+<a href="https://www.javatpoint.com/performance-metrics-in-machine-learning">Performance Metrics in Machine Learning</a>
+<a href="https://www.javatpoint.com/optimization-using-hopfield-network">Optimization using Hopfield Network</a>
+<a href="https://www.javatpoint.com/data-leakage-in-machine-learning">Data Leakage in Machine Learning</a>
+<a href="https://www.javatpoint.com/generative-adversarial-network">Generative Adversarial Network</a>
+<a href="https://www.javatpoint.com/machine-learning-for-data-management">Machine Learning for Data Management</a>
+<a href="https://www.javatpoint.com/tensor-processing-units">Tensor Processing Units</a>
+<a href="https://www.javatpoint.com/train-and-test-datasets-in-machine-learning">Train and Test datasets in Machine Learning</a>
+<a href="https://www.javatpoint.com/how-to-start-with-Machine-mearning">How to Start with Machine Learning</a>
+<a href="https://www.javatpoint.com/auc-roc-curve-in-machine-learning">AUC-ROC Curve in Machine Learning</a>
+<a href="https://www.javatpoint.com/targeted-advertising-using-machine-learning">Targeted Advertising using Machine Learning</a>
+<a href="https://www.javatpoint.com/top-10-machine-learning-projects-for-beginners-using-python">Top 10 Machine Learning Projects for Beginners using Python</a>
+<a href="https://www.javatpoint.com/what-is-human-in-the-loop-machine-learning">What is Human-in-the-Loop Machine Learning</a>
+<a href="https://www.javatpoint.com/what-is-mlops">What is MLOps</a>
+</div>
+<div class="leftmenu2">
+<h2 class="spanh2"><span class="spanh2">Related Tutorials</span></h2>
+</div>
+<div class="leftmenu">
+<a href="https://www.javatpoint.com/tensorflow">Tensorflow Tutorial</a>
+<a href="https://www.javatpoint.com/pytorch">PyTorch Tutorial</a>
+<a href="https://www.javatpoint.com/data-science">Data Science Tutorial</a>
+<a href="https://www.javatpoint.com/artificial-intelligence-tutorial">AI Tutorial</a>
+<a href="https://www.javatpoint.com/nlp">NLP Tutorial</a>
+<a href="https://www.javatpoint.com/reinforcement-learning">Reinforcement Learning</a>
+</div>
+<div class="leftmenu2">
+<h2 class="spanh2"><span class="spanh2">Interview Questions</span></h2>
+</div>
+<div class="leftmenu">
+<a href="https://www.javatpoint.com/machine-learning-interview-questions">Machine learning Interview</a>
+</div>
+<img src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/wh.JPG" alt="JavaTpoint">
+<br>
+<div id="leftad" style="margin-left:20px">
+
+<div id="17c09743-0b89-427c-ba64-e09f6a1745a2" class="_ap_apex_ad">
+<script>
+		var adpushup = window.adpushup = window.adpushup || {};
+		adpushup.que = adpushup.que || [];
+		adpushup.que.push(function() {
+			adpushup.triggerAd("17c09743-0b89-427c-ba64-e09f6a1745a2");
+		});
+	</script>
+</div>
+</div>
+</div>
+<div class="onlycontent">
+
+<div class="onlycontentad">
+<div id="9bbcb75d-b5e2-40e1-a811-e7680d1f59a4" class="_ap_apex_ad">
+<script>
+		var adpushup = window.adpushup = window.adpushup || {};
+		adpushup.que = adpushup.que || [];
+		adpushup.que.push(function() {
+			adpushup.triggerAd("9bbcb75d-b5e2-40e1-a811-e7680d1f59a4");
+		});
+	</script>
+</div>
+</div>
+<div class="onlycontentinner">
+<div id="city">
+<table>
+<tbody><tr><td>
+<div id="bottomnextup">
+<a class="next" href="https://www.javatpoint.com/machine-learning-random-forest-algorithm">next &#8594;</a>
+<a class="next" href="https://www.javatpoint.com/linear-regression-vs-logistic-regression-in-machine-learning">&#8592; prev</a>
+</div>
+<h1 class="h1">Decision Tree Classification Algorithm</h1>
+<ul class="points">
+<li>Decision Tree is a <strong>Supervised learning technique </strong> that can be used for both classification and Regression problems, but mostly it is preferred for solving Classification problems. It is a tree-structured classifier, where<strong> internal nodes represent the features of a dataset, branches represent the decision rules</strong> and <strong>each leaf node represents the outcome.</strong></li>
+<li>In a Decision tree, there are two nodes, which are the <strong>Decision Node</strong> and<strong> Leaf Node.</strong> Decision nodes are used to make any decision and have multiple branches, whereas Leaf nodes are the output of those decisions and do not contain any further branches. </li>
+<li>The decisions or the test are performed on the basis of features of the given dataset.</li>
+<li><strong><em>It is a graphical representation for getting all the possible solutions to a problem/decision based on given conditions.</em></strong></li>
+<li>It is called a decision tree because, similar to a tree, it starts with the root node, which expands on further branches and constructs a tree-like structure.</li>
+<li>In order to build a tree, we use the <strong>CART algorithm,</strong> which stands for <strong>Classification and Regression Tree algorithm.</strong> </li>
+<li>A decision tree simply asks a question, and based on the answer (Yes/No), it further split the tree into subtrees. </li>
+<li>Below diagram explains the general structure of a decision tree: </li>
+</ul>
+<h4 class="n">Note: A decision tree can contain categorical data (YES/NO) as well as numeric data.</h4>
+<img src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/decision-tree-classification-algorithm.png" alt="Decision Tree Classification Algorithm">
+<h2 class="h3">Why use Decision Trees?</h2>
+<p>There are various algorithms in Machine learning, so choosing the best algorithm for the given dataset and problem is the main point to remember while creating a machine learning model. Below are the two reasons for using the Decision tree: </p>
+<ul class="points">
+<li>Decision Trees usually mimic human thinking ability while making a decision, so it is easy to understand. </li>
+<li>The logic behind the decision tree can be easily understood because it shows a tree-like structure. </li>
+</ul>
+<h2 class="h3">Decision Tree Terminologies</h2>
+<li><strong>Root Node:</strong> Root node is from where the decision tree starts. It represents the entire dataset, which further gets divided into two or more homogeneous sets. </li>
+<li><strong>Leaf Node:</strong> Leaf nodes are the final output node, and the tree cannot be segregated further after getting a leaf node.</li>
+<li><strong>Splitting:</strong> Splitting is the process of dividing the decision node/root node into sub-nodes according to the given conditions. </li>
+<li><strong>Branch/Sub Tree:</strong> A tree formed by splitting the tree. </li>
+<li><strong>Pruning:</strong> Pruning is the process of removing the unwanted branches from the tree. </li>
+<li><strong>Parent/Child node:</strong> The root node of the tree is called the parent node, and other nodes are called the child nodes.</li>
+
+<p class="pq"><strong>How does the Decision Tree algorithm Work?</strong></p>
+<p>In a decision tree, for predicting the class of the given dataset, the algorithm starts from the root node of the tree. This algorithm compares the values of root attribute with the record (real dataset) attribute and, based on the comparison, follows the branch and jumps to the next node. </p>
+<p>For the next node, the algorithm again compares the attribute value with the other sub-nodes and move further. It continues the process until it reaches the leaf node of the tree. The complete process can be better understood using the below algorithm:</p>
+<ul class="points">
+<li><strong>Step-1:</strong> Begin the tree with the root node, says S, which contains the complete dataset. </li>
+<li><strong>Step-2:</strong> Find the best attribute in the dataset using <strong>Attribute Selection Measure (ASM).</strong> </li>
+<li><strong>Step-3:</strong> Divide the S into subsets that contains possible values for the best attributes. </li>
+<li><strong>Step-4:</strong> Generate the decision tree node, which contains the best attribute. </li>
+<li><strong>Step-5:</strong> Recursively make new decision trees using the subsets of the dataset created in step -3. Continue this process until a stage is reached where you cannot further classify the nodes and called the final node as a leaf node. </li>
+</ul>
+<p><strong>Example:</strong> Suppose there is a candidate who has a job offer and wants to decide whether he should accept the offer or Not. So, to solve this problem, the decision tree starts with the root node (Salary attribute by ASM). The root node splits further into the next decision node (distance from the office) and one leaf node based on the corresponding labels. The next decision node further gets split into one decision node (Cab facility) and one leaf node. Finally, the decision node splits into two leaf nodes (Accepted offers and Declined offer). Consider the below diagram:</p>
+<img src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/decision-tree-classification-algorithm2.png" alt="Decision Tree Classification Algorithm">
+<h2 class="h3">Attribute Selection Measures</h2>
+<p>While implementing a Decision tree, the main issue arises that how to select the best attribute for the root node and for sub-nodes. So, to solve such problems there is a technique which is called as <strong> Attribute selection measure or ASM. </strong>By this measurement, we can easily select the best attribute for the nodes of the tree. There are two popular techniques for ASM, which are:</p>
+<ul class="points">
+<li><strong>Information Gain</strong></li>
+<li><strong>Gini Index</strong></li>
+</ul>
+<h3 class="h3">1. Information Gain:</h3>
+<ul class="points">
+<li>Information gain is the measurement of changes in entropy after the segmentation of a dataset based on an attribute.</li>
+<li>It calculates how much information a feature provides us about a class. </li>
+<li>According to the value of information gain, we split the node and build the decision tree. </li>
+<li>A decision tree algorithm always tries to maximize the value of information gain, and a node/attribute having the highest information gain is split first. It can be calculated using the below formula:</li>
+</ul>
+<div class="codeblock"><div class="dp-highlighter"><div class="bar"><div class="tools"><a href="https://www.javatpoint.com/machine-learning-decision-tree-classification-algorithm#" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;"></a><a href="https://www.javatpoint.com/machine-learning-decision-tree-classification-algorithm#" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;"></a><a href="https://www.javatpoint.com/machine-learning-decision-tree-classification-algorithm#" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;"></a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span>Information&nbsp;Gain=&nbsp;Entropy(S)-&nbsp;[(Weighted&nbsp;Avg)&nbsp;*Entropy(each&nbsp;feature)&nbsp;&nbsp;</span></span></li></ol></div><textarea name="code" class="java" style="display: none;">Information Gain= Entropy(S)- [(Weighted Avg) *Entropy(each feature)
+</textarea></div>
+<p><strong>Entropy:</strong> Entropy is a metric to measure the impurity in a given attribute. It specifies randomness in data. Entropy can be calculated as:</p>
+<pre>Entropy(s)= -P(yes)log2 P(yes)- P(no) log2 P(no)</pre>
+<p><strong>Where,</strong></p>
+<ul class="points">
+<li><strong>S= Total number of samples</strong></li>
+<li><strong>P(yes)= probability of yes</strong></li>
+<li><strong>P(no)= probability of no</strong></li>
+</ul>
+<h3 class="h3">2. Gini Index:</h3>
+<ul class="points">
+<li>Gini index is a measure of impurity or purity used while creating a decision tree in the CART(Classification and Regression Tree) algorithm. </li>
+<li>An attribute with the low Gini index should be preferred as compared to the high Gini index. </li>
+<li>It only creates binary splits, and the CART algorithm uses the Gini index to create binary splits. </li>
+<li>Gini index can be calculated using the below formula:</li>
+</ul>
+<div class="codeblock"><pre>Gini Index= 1- &#8721;<sub>j</sub>P<sub>j</sub><sup>2</sup>
+</pre></div>
+<h2 class="h2">Pruning: Getting an Optimal Decision tree</h2>
+<p><em>Pruning is a process of deleting the unnecessary nodes from a tree in order to get the optimal decision tree. </em></p>
+<p>A too-large tree increases the risk of overfitting, and a small tree may not capture all the important features of the dataset. Therefore, a technique that decreases the size of the learning tree without reducing accuracy is known as Pruning. There are mainly two types of tree <strong>pruning </strong> technology used:</p>
+<ul class="points">
+<li><strong>Cost Complexity Pruning</strong></li>
+<li><strong>Reduced Error Pruning. </strong></li>
+</ul>
+<h2 class="h2">Advantages of the Decision Tree</h2>
+<ul class="points">
+<li>It is simple to understand as it follows the same process which a human follow while making any decision in real-life.</li>
+<li>It can be very useful for solving decision-related problems.</li>
+<li>It helps to think about all the possible outcomes for a problem. </li>
+<li>There is less requirement of data cleaning compared to other algorithms. </li>
+</ul>
+<h2 class="h2">Disadvantages of the Decision Tree</h2>
+<ul class="points">
+<li>The decision tree contains lots of layers, which makes it complex. </li>
+<li>It may have an overfitting issue, which can be resolved using the <strong>Random Forest algorithm. </strong> </li>
+<li>For more class labels, the computational complexity of the decision tree may increase. </li>
+</ul>
+<h2 class="h2">Python Implementation of Decision Tree</h2>
+<p>Now we will implement the Decision tree using Python. For this, we will use the dataset "<strong>user_data.csv</strong>," which we have used in previous classification models. By using the same dataset, we can compare the Decision tree classifier with other classification models such as <a href="https://www.javatpoint.com/k-nearest-neighbor-algorithm-for-machine-learning">KNN</a>
+<a href="https://www.javatpoint.com/machine-learning-support-vector-machine-algorithm">SVM,</a> <a href="https://www.javatpoint.com/logistic-regression-in-machine-learning">LogisticRegression,</a> etc. </p>
+<p>Steps will also remain the same, which are given below:</p>
+<ul class="points">
+<li><strong>Data Pre-processing step</strong></li>
+<li><strong>Fitting a Decision-Tree algorithm to the Training set</strong></li>
+<li><strong>Predicting the test result</strong></li>
+<li><strong>Test accuracy of the result(Creation of Confusion matrix)</strong></li>
+<li><strong>Visualizing the test set result. </strong></li>
+</ul>
+<h3 class="h3">1. Data Pre-Processing Step:</h3>
+<p>Below is the code for the pre-processing step:</p>
+<div class="codeblock"><div class="dp-highlighter"><div class="bar"><div class="tools"><a href="https://www.javatpoint.com/machine-learning-decision-tree-classification-algorithm#" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;"></a><a href="https://www.javatpoint.com/machine-learning-decision-tree-classification-algorithm#" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;"></a><a href="https://www.javatpoint.com/machine-learning-decision-tree-classification-algorithm#" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;"></a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span>#&nbsp;importing&nbsp;libraries&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">import</span><span>&nbsp;numpy&nbsp;as&nbsp;nm&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">import</span><span>&nbsp;matplotlib.pyplot&nbsp;as&nbsp;mtp&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">import</span><span>&nbsp;pandas&nbsp;as&nbsp;pd&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>#importing&nbsp;datasets&nbsp;&nbsp;</span></li><li class="alt"><span>data_set=&nbsp;pd.read_csv(<span class="string">'user_data.csv'</span><span>)&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>#Extracting&nbsp;Independent&nbsp;and&nbsp;dependent&nbsp;Variable&nbsp;&nbsp;</span></li><li class=""><span>x=&nbsp;data_set.iloc[:,&nbsp;[<span class="number">2</span><span>,</span><span class="number">3</span><span>]].values&nbsp;&nbsp;</span></span></li><li class="alt"><span>y=&nbsp;data_set.iloc[:,&nbsp;<span class="number">4</span><span>].values&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>#&nbsp;Splitting&nbsp;the&nbsp;dataset&nbsp;into&nbsp;training&nbsp;and&nbsp;test&nbsp;set.&nbsp;&nbsp;</span></li><li class=""><span>from&nbsp;sklearn.model_selection&nbsp;<span class="keyword">import</span><span>&nbsp;train_test_split&nbsp;&nbsp;</span></span></li><li class="alt"><span>x_train,&nbsp;x_test,&nbsp;y_train,&nbsp;y_test=&nbsp;train_test_split(x,&nbsp;y,&nbsp;test_size=&nbsp;<span class="number">0.25</span><span>,&nbsp;random_state=</span><span class="number">0</span><span>)&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>#feature&nbsp;Scaling&nbsp;&nbsp;</span></li><li class=""><span>from&nbsp;sklearn.preprocessing&nbsp;<span class="keyword">import</span><span>&nbsp;StandardScaler&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li class="alt"><span>st_x=&nbsp;StandardScaler()&nbsp;&nbsp;</span></li><li class=""><span>x_train=&nbsp;st_x.fit_transform(x_train)&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>x_test=&nbsp;st_x.transform(x_test)&nbsp;&nbsp;&nbsp;&nbsp;</span></li></ol></div><textarea name="code" class="java" style="display: none;"># importing libraries
+import numpy as nm
+import matplotlib.pyplot as mtp
+import pandas as pd
+
+#importing datasets
+data_set= pd.read_csv('user_data.csv')
+
+#Extracting Independent and dependent Variable
+x= data_set.iloc[:, [2,3]].values
+y= data_set.iloc[:, 4].values
+
+# Splitting the dataset into training and test set.
+from sklearn.model_selection import train_test_split
+x_train, x_test, y_train, y_test= train_test_split(x, y, test_size= 0.25, random_state=0)
+
+#feature Scaling
+from sklearn.preprocessing import StandardScaler  
+st_x= StandardScaler()
+x_train= st_x.fit_transform(x_train)  
+x_test= st_x.transform(x_test)  
+</textarea></div>
+<p>In the above code, we have pre-processed the data. Where we have loaded the dataset, which is given as:</p>
+<img src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/decision-tree-classification-algorithm3.png" alt="Decision Tree Classification Algorithm">
+<h3 class="h3">2. Fitting a Decision-Tree algorithm to the Training set</h3>
+<p>Now we will fit the model to the training set. For this, we will import the <strong>DecisionTreeClassifier</strong> class from <strong>sklearn.tree</strong> library. Below is the code for it:</p>
+<div class="codeblock"><div class="dp-highlighter"><div class="bar"><div class="tools"><a href="https://www.javatpoint.com/machine-learning-decision-tree-classification-algorithm#" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;"></a><a href="https://www.javatpoint.com/machine-learning-decision-tree-classification-algorithm#" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;"></a><a href="https://www.javatpoint.com/machine-learning-decision-tree-classification-algorithm#" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;"></a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span>#Fitting&nbsp;Decision&nbsp;Tree&nbsp;classifier&nbsp;to&nbsp;the&nbsp;training&nbsp;set&nbsp;&nbsp;</span></span></li><li class=""><span>From&nbsp;sklearn.tree&nbsp;<span class="keyword">import</span><span>&nbsp;DecisionTreeClassifier&nbsp;&nbsp;</span></span></li><li class="alt"><span>classifier=&nbsp;DecisionTreeClassifier(criterion=<span class="string">'entropy'</span><span>,&nbsp;random_state=</span><span class="number">0</span><span>)&nbsp;&nbsp;</span></span></li><li class=""><span>classifier.fit(x_train,&nbsp;y_train)&nbsp;&nbsp;</span></li></ol></div><textarea name="code" class="java" style="display: none;">#Fitting Decision Tree classifier to the training set
+From sklearn.tree import DecisionTreeClassifier
+classifier= DecisionTreeClassifier(criterion='entropy', random_state=0)
+classifier.fit(x_train, y_train)
+</textarea></div>
+<p>In the above code, we have created a classifier object, in which we have passed two main parameters; </p>
+<ul class="points">
+<li><strong>"criterion='entropy':</strong> Criterion is used to measure the quality of split, which is calculated by information gain given by entropy. </li>
+<li><strong>random_state=0":</strong> For generating the random states. </li>
+</ul>
+<p>Below is the output for this:</p>
+<div class="codeblock3"><pre>Out[8]: 
+DecisionTreeClassifier(class_weight=None, criterion='entropy', max_depth=None,
+max_features=None, max_leaf_nodes=None,
+min_impurity_decrease=0.0, min_impurity_split=None,
+min_samples_leaf=1, min_samples_split=2,
+min_weight_fraction_leaf=0.0, presort=False,
+                       random_state=0, splitter='best')
+</pre></div>
+<h3 class="h3">3. Predicting the test result</h3>
+<p>Now we will predict the test set result. We will create a new prediction vector <strong>y_pred.</strong> Below is the code for it:</p>
+<div class="codeblock"><div class="dp-highlighter"><div class="bar"><div class="tools"><a href="https://www.javatpoint.com/machine-learning-decision-tree-classification-algorithm#" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;"></a><a href="https://www.javatpoint.com/machine-learning-decision-tree-classification-algorithm#" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;"></a><a href="https://www.javatpoint.com/machine-learning-decision-tree-classification-algorithm#" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;"></a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span>#Predicting&nbsp;the&nbsp;test&nbsp;set&nbsp;result&nbsp;&nbsp;</span></span></li><li class=""><span>y_pred=&nbsp;classifier.predict(x_test)&nbsp;&nbsp;</span></li></ol></div><textarea name="code" class="java" style="display: none;">#Predicting the test set result
+y_pred= classifier.predict(x_test)
+</textarea></div>
+<p><strong>Output:</strong></p>
+<p>In the below output image, the predicted output and real test output are given. We can clearly see that there are some values in the prediction vector, which are different from the real vector values. These are prediction errors. </p>
+<img src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/decision-tree-classification-algorithm4.png" alt="Decision Tree Classification Algorithm">
+<h3 class="h3">4. Test accuracy of the result (Creation of Confusion matrix)</h3>
+<p>In the above output, we have seen that there were some incorrect predictions, so if we want to know the number of correct and incorrect predictions, we need to use the confusion matrix. Below is the code for it:</p>
+<div class="codeblock"><div class="dp-highlighter"><div class="bar"><div class="tools"><a href="https://www.javatpoint.com/machine-learning-decision-tree-classification-algorithm#" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;"></a><a href="https://www.javatpoint.com/machine-learning-decision-tree-classification-algorithm#" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;"></a><a href="https://www.javatpoint.com/machine-learning-decision-tree-classification-algorithm#" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;"></a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span>#Creating&nbsp;the&nbsp;Confusion&nbsp;matrix&nbsp;&nbsp;</span></span></li><li class=""><span>from&nbsp;sklearn.metrics&nbsp;<span class="keyword">import</span><span>&nbsp;confusion_matrix&nbsp;&nbsp;</span></span></li><li class="alt"><span>cm=&nbsp;confusion_matrix(y_test,&nbsp;y_pred)&nbsp;&nbsp;</span></li></ol></div><textarea name="code" class="java" style="display: none;">#Creating the Confusion matrix
+from sklearn.metrics import confusion_matrix
+cm= confusion_matrix(y_test, y_pred)
+</textarea></div>
+<p><strong>Output:</strong></p>
+<img src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/decision-tree-classification-algorithm5.png" alt="Decision Tree Classification Algorithm">
+<p>In the above output image, we can see the confusion matrix, which has <strong>6+3= 9 incorrect predictions</strong> and<strong>62+29=91 correct predictions. Therefore, we can say that compared to other classification models, the Decision Tree classifier made a good prediction.</strong></p>
+<h3 class="h3">5. Visualizing the training set result:</h3>
+<p>Here we will visualize the training set result. To visualize the training set result we will plot a graph for the decision tree classifier. The classifier will predict yes or No for the users who have either Purchased or Not purchased the SUV car as we did in <a href="https://www.javatpoint.com/logistic-regression-in-machine-learning">Logistic Regression.</a> Below is the code for it:</p>
+<div class="codeblock"><div class="dp-highlighter"><div class="bar"><div class="tools"><a href="https://www.javatpoint.com/machine-learning-decision-tree-classification-algorithm#" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;"></a><a href="https://www.javatpoint.com/machine-learning-decision-tree-classification-algorithm#" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;"></a><a href="https://www.javatpoint.com/machine-learning-decision-tree-classification-algorithm#" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;"></a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span>#Visulaizing&nbsp;the&nbsp;trianing&nbsp;set&nbsp;result&nbsp;&nbsp;</span></span></li><li class=""><span>from&nbsp;matplotlib.colors&nbsp;<span class="keyword">import</span><span>&nbsp;ListedColormap&nbsp;&nbsp;</span></span></li><li class="alt"><span>x_set,&nbsp;y_set&nbsp;=&nbsp;x_train,&nbsp;y_train&nbsp;&nbsp;</span></li><li class=""><span>x1,&nbsp;x2&nbsp;=&nbsp;nm.meshgrid(nm.arange(start&nbsp;=&nbsp;x_set[:,&nbsp;<span class="number">0</span><span>].min()&nbsp;-&nbsp;</span><span class="number">1</span><span>,&nbsp;stop&nbsp;=&nbsp;x_set[:,&nbsp;</span><span class="number">0</span><span>].max()&nbsp;+&nbsp;</span><span class="number">1</span><span>,&nbsp;step&nbsp;&nbsp;=</span><span class="number">0.01</span><span>),&nbsp;&nbsp;</span></span></li><li class="alt"><span>nm.arange(start&nbsp;=&nbsp;x_set[:,&nbsp;<span class="number">1</span><span>].min()&nbsp;-&nbsp;</span><span class="number">1</span><span>,&nbsp;stop&nbsp;=&nbsp;x_set[:,&nbsp;</span><span class="number">1</span><span>].max()&nbsp;+&nbsp;</span><span class="number">1</span><span>,&nbsp;step&nbsp;=&nbsp;</span><span class="number">0.01</span><span>))&nbsp;&nbsp;</span></span></li><li class=""><span>mtp.contourf(x1,&nbsp;x2,&nbsp;classifier.predict(nm.array([x1.ravel(),&nbsp;x2.ravel()]).T).reshape(x1.shape),&nbsp;&nbsp;</span></li><li class="alt"><span>alpha&nbsp;=&nbsp;<span class="number">0.75</span><span>,&nbsp;cmap&nbsp;=&nbsp;ListedColormap((</span><span class="string">'purple'</span><span>,</span><span class="string">'green'</span><span>&nbsp;)))&nbsp;&nbsp;</span></span></li><li class=""><span>mtp.xlim(x1.min(),&nbsp;x1.max())&nbsp;&nbsp;</span></li><li class="alt"><span>mtp.ylim(x2.min(),&nbsp;x2.max())&nbsp;&nbsp;</span></li><li class=""><span>fori,&nbsp;j&nbsp;in&nbsp;enumerate(nm.unique(y_set)):&nbsp;&nbsp;</span></li><li class="alt"><span>mtp.scatter(x_set[y_set&nbsp;==&nbsp;j,&nbsp;<span class="number">0</span><span>],&nbsp;x_set[y_set&nbsp;==&nbsp;j,&nbsp;</span><span class="number">1</span><span>],&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c&nbsp;=&nbsp;ListedColormap((<span class="string">'purple'</span><span>,&nbsp;</span><span class="string">'green'</span><span>))(i),&nbsp;label&nbsp;=&nbsp;j)&nbsp;&nbsp;</span></span></li><li class="alt"><span>mtp.title(<span class="string">'Decision&nbsp;Tree&nbsp;Algorithm&nbsp;(Training&nbsp;set)'</span><span>)&nbsp;&nbsp;</span></span></li><li class=""><span>mtp.xlabel(<span class="string">'Age'</span><span>)&nbsp;&nbsp;</span></span></li><li class="alt"><span>mtp.ylabel(<span class="string">'Estimated&nbsp;Salary'</span><span>)&nbsp;&nbsp;</span></span></li><li class=""><span>mtp.legend()&nbsp;&nbsp;</span></li><li class="alt"><span>mtp.show()&nbsp;&nbsp;</span></li></ol></div><textarea name="code" class="java" style="display: none;">#Visulaizing the trianing set result
+from matplotlib.colors import ListedColormap
+x_set, y_set = x_train, y_train
+x1, x2 = nm.meshgrid(nm.arange(start = x_set[:, 0].min() - 1, stop = x_set[:, 0].max() + 1, step  =0.01),
+nm.arange(start = x_set[:, 1].min() - 1, stop = x_set[:, 1].max() + 1, step = 0.01))
+mtp.contourf(x1, x2, classifier.predict(nm.array([x1.ravel(), x2.ravel()]).T).reshape(x1.shape),
+alpha = 0.75, cmap = ListedColormap(('purple','green' )))
+mtp.xlim(x1.min(), x1.max())
+mtp.ylim(x2.min(), x2.max())
+fori, j in enumerate(nm.unique(y_set)):
+mtp.scatter(x_set[y_set == j, 0], x_set[y_set == j, 1],
+        c = ListedColormap(('purple', 'green'))(i), label = j)
+mtp.title('Decision Tree Algorithm (Training set)')
+mtp.xlabel('Age')
+mtp.ylabel('Estimated Salary')
+mtp.legend()
+mtp.show()
+</textarea></div>
+<p><strong>Output:</strong></p>
+<img src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/decision-tree-classification-algorithm6.png" alt="Decision Tree Classification Algorithm">
+<p>The above output is completely different from the rest classification models. It has both vertical and horizontal lines that are splitting the dataset according to the age and estimated salary variable. </p>
+<p>As we can see, the tree is trying to capture each dataset, which is the case of overfitting. </p>
+<h3 class="h3">6. Visualizing the test set result:</h3>
+<p>Visualization of test set result will be similar to the visualization of the training set except that the training set will be replaced with the test set. </p>
+<div class="codeblock"><div class="dp-highlighter"><div class="bar"><div class="tools"><a href="https://www.javatpoint.com/machine-learning-decision-tree-classification-algorithm#" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;"></a><a href="https://www.javatpoint.com/machine-learning-decision-tree-classification-algorithm#" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;"></a><a href="https://www.javatpoint.com/machine-learning-decision-tree-classification-algorithm#" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;"></a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span>#Visulaizing&nbsp;the&nbsp;test&nbsp;set&nbsp;result&nbsp;&nbsp;</span></span></li><li class=""><span>from&nbsp;matplotlib.colors&nbsp;<span class="keyword">import</span><span>&nbsp;ListedColormap&nbsp;&nbsp;</span></span></li><li class="alt"><span>x_set,&nbsp;y_set&nbsp;=&nbsp;x_test,&nbsp;y_test&nbsp;&nbsp;</span></li><li class=""><span>x1,&nbsp;x2&nbsp;=&nbsp;nm.meshgrid(nm.arange(start&nbsp;=&nbsp;x_set[:,&nbsp;<span class="number">0</span><span>].min()&nbsp;-&nbsp;</span><span class="number">1</span><span>,&nbsp;stop&nbsp;=&nbsp;x_set[:,&nbsp;</span><span class="number">0</span><span>].max()&nbsp;+&nbsp;</span><span class="number">1</span><span>,&nbsp;step&nbsp;&nbsp;=</span><span class="number">0.01</span><span>),&nbsp;&nbsp;</span></span></li><li class="alt"><span>nm.arange(start&nbsp;=&nbsp;x_set[:,&nbsp;<span class="number">1</span><span>].min()&nbsp;-&nbsp;</span><span class="number">1</span><span>,&nbsp;stop&nbsp;=&nbsp;x_set[:,&nbsp;</span><span class="number">1</span><span>].max()&nbsp;+&nbsp;</span><span class="number">1</span><span>,&nbsp;step&nbsp;=&nbsp;</span><span class="number">0.01</span><span>))&nbsp;&nbsp;</span></span></li><li class=""><span>mtp.contourf(x1,&nbsp;x2,&nbsp;classifier.predict(nm.array([x1.ravel(),&nbsp;x2.ravel()]).T).reshape(x1.shape),&nbsp;&nbsp;</span></li><li class="alt"><span>alpha&nbsp;=&nbsp;<span class="number">0.75</span><span>,&nbsp;cmap&nbsp;=&nbsp;ListedColormap((</span><span class="string">'purple'</span><span>,</span><span class="string">'green'</span><span>&nbsp;)))&nbsp;&nbsp;</span></span></li><li class=""><span>mtp.xlim(x1.min(),&nbsp;x1.max())&nbsp;&nbsp;</span></li><li class="alt"><span>mtp.ylim(x2.min(),&nbsp;x2.max())&nbsp;&nbsp;</span></li><li class=""><span>fori,&nbsp;j&nbsp;in&nbsp;enumerate(nm.unique(y_set)):&nbsp;&nbsp;</span></li><li class="alt"><span>mtp.scatter(x_set[y_set&nbsp;==&nbsp;j,&nbsp;<span class="number">0</span><span>],&nbsp;x_set[y_set&nbsp;==&nbsp;j,&nbsp;</span><span class="number">1</span><span>],&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c&nbsp;=&nbsp;ListedColormap((<span class="string">'purple'</span><span>,&nbsp;</span><span class="string">'green'</span><span>))(i),&nbsp;label&nbsp;=&nbsp;j)&nbsp;&nbsp;</span></span></li><li class="alt"><span>mtp.title(<span class="string">'Decision&nbsp;Tree&nbsp;Algorithm(Test&nbsp;set)'</span><span>)&nbsp;&nbsp;</span></span></li><li class=""><span>mtp.xlabel(<span class="string">'Age'</span><span>)&nbsp;&nbsp;</span></span></li><li class="alt"><span>mtp.ylabel(<span class="string">'Estimated&nbsp;Salary'</span><span>)&nbsp;&nbsp;</span></span></li><li class=""><span>mtp.legend()&nbsp;&nbsp;</span></li><li class="alt"><span>mtp.show()&nbsp;&nbsp;</span></li></ol></div><textarea name="code" class="java" style="display: none;">#Visulaizing the test set result
+from matplotlib.colors import ListedColormap
+x_set, y_set = x_test, y_test
+x1, x2 = nm.meshgrid(nm.arange(start = x_set[:, 0].min() - 1, stop = x_set[:, 0].max() + 1, step  =0.01),
+nm.arange(start = x_set[:, 1].min() - 1, stop = x_set[:, 1].max() + 1, step = 0.01))
+mtp.contourf(x1, x2, classifier.predict(nm.array([x1.ravel(), x2.ravel()]).T).reshape(x1.shape),
+alpha = 0.75, cmap = ListedColormap(('purple','green' )))
+mtp.xlim(x1.min(), x1.max())
+mtp.ylim(x2.min(), x2.max())
+fori, j in enumerate(nm.unique(y_set)):
+mtp.scatter(x_set[y_set == j, 0], x_set[y_set == j, 1],
+        c = ListedColormap(('purple', 'green'))(i), label = j)
+mtp.title('Decision Tree Algorithm(Test set)')
+mtp.xlabel('Age')
+mtp.ylabel('Estimated Salary')
+mtp.legend()
+mtp.show()
+</textarea></div>
+<p><strong>Output:</strong></p>
+<img src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/decision-tree-classification-algorithm7.png" alt="Decision Tree Classification Algorithm">
+<p>As we can see in the above image that there are some green data points within the purple region and vice versa. So, these are the incorrect predictions which we have discussed in the confusion matrix.</p>
+<hr>
+<div class="nexttopicdiv">
+<span class="nexttopictext">Next Topic</span><span class="nexttopiclink"><a href="https://www.javatpoint.com/machine-learning-random-forest-algorithm">Machine Learning Interview Questions</a></span>
+</div>
+
+<br><br>
+<div id="bottomnext">
+<a style="float:left" class="next" href="https://www.javatpoint.com/linear-regression-vs-logistic-regression-in-machine-learning">&#8592; prev</a>
+<a style="float:right" class="next" href="https://www.javatpoint.com/machine-learning-random-forest-algorithm">next &#8594;</a>
+</div>
+<br><br>
+</td></tr>
+</tbody></table>
+</div>
+<hr class="hrhomebox">
+<div><img class=" lazyloaded" data-src="https://static.javatpoint.com/images/youtube-32.png" style="vertical-align:middle;" alt="Youtube" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/youtube-32.png">
+<span class="h3" style="vertical-align:middle;font-size:22px"> For Videos Join Our Youtube Channel: <a href="https://bit.ly/2FOeX6S" target="_blank"> Join Now</a></span>
+</div>
+<hr class="hrhomebox">
+<h3 class="h3">Feedback</h3>
+<ul class="points">
+<li>Send your Feedback to feedback@javatpoint.com</li>
+</ul>
+<hr class="hrhomebox">
+<h2 class="h2">Help Others, Please Share</h2>
+<a rel="nofollow" title="Facebook" target="_blank" href="https://www.facebook.com/sharer.php?u=https://www.javatpoint.com/machine-learning-decision-tree-classification-algorithm"><img src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/facebook32.png" alt="facebook"></a>
+<a rel="nofollow" title="Twitter" target="_blank" href="https://twitter.com/share?url=https://www.javatpoint.com/machine-learning-decision-tree-classification-algorithm"><img src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/twitter32.png" alt="twitter"></a>
+<a rel="nofollow" title="Pinterest" target="_blank" href="https://www.pinterest.com/pin/create/button/?url=https://www.javatpoint.com/machine-learning-decision-tree-classification-algorithm"><img src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/pinterest32.png" alt="pinterest"></a>
+
+
+<script async="" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/f(1).txt"></script>
+
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4699858549023382" data-ad-slot="5022809933" data-ad-format="auto" data-full-width-responsive="true"><iframe id="aswift_0" style="height: 1px !important; max-height: 1px !important; max-width: 1px !important; width: 1px !important;" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/saved_resource.html"><iframe id="google_ads_frame0" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/saved_resource(1).html"></iframe></iframe></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<hr class="hrhomebox">
+
+<fieldset class="gra1">
+<h2 class="h3">Learn Latest Tutorials</h2>
+<div class="firsthomecontent">
+<a href="https://www.javatpoint.com/splunk">
+<div class="homecontent"><img class=" lazyloaded" data-src="https://static.javatpoint.com/images/homeicon/splunk.png" alt="Splunk tutorial" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/splunk.png">
+<p>Splunk</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/spss">
+<div class="homecontent"><img class=" lazyloaded" data-src="https://static.javatpoint.com/images/homeicon/spss.png" alt="SPSS tutorial" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/spss.png">
+<p>SPSS</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/swagger">
+<div class="homecontent"><img class=" lazyloaded" data-src="https://static.javatpoint.com/images/homeicon/swagger.png" alt="Swagger tutorial" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/swagger.png">
+<p>Swagger</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/t-sql">
+<div class="homecontent"><img class=" lazyloaded" data-src="https://static.javatpoint.com/images/homeicon/transact-sql.png" alt="T-SQL tutorial" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/transact-sql.png">
+<p>Transact-SQL</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/tumblr">
+<div class="homecontent"><img class=" lazyloaded" data-src="https://static.javatpoint.com/images/homeicon/tumblr.png" alt="Tumblr tutorial" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/tumblr.png">
+<p>Tumblr</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/reactjs-tutorial">
+<div class="homecontent"><img class=" lazyloaded" data-src="https://static.javatpoint.com/images/homeicon/react.png" alt="React tutorial" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/react.png">
+<p>ReactJS</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/regex">
+<div class="homecontent"><img class=" lazyloaded" data-src="https://static.javatpoint.com/images/homeicon/regex.png" alt="Regex tutorial" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/regex.png">
+<p>Regex</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/reinforcement-learning">
+<div class="homecontent"><img class=" lazyloaded" data-src="https://static.javatpoint.com/images/homeicon/react.png" alt="Reinforcement learning tutorial" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/react.png">
+<p>Reinforcement Learning</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/r-tutorial">
+<div class="homecontent"><img class=" lazyloaded" data-src="https://static.javatpoint.com/images/homeicon/r-programming.png" alt="R Programming tutorial" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/r-programming.png">
+<p>R Programming</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/rxjs">
+<div class="homecontent"><img class=" lazyloaded" data-src="https://static.javatpoint.com/images/homeicon/rxjs.png" alt="RxJS tutorial" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/rxjs.png">
+<p>RxJS</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/react-native-tutorial">
+<div class="homecontent"><img class=" lazyloaded" data-src="https://static.javatpoint.com/images/homeicon/react-native.png" alt="React Native tutorial" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/react-native.png">
+<p>React Native</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/python-design-pattern">
+<div class="homecontent"><img class=" lazyloaded" data-src="https://static.javatpoint.com/images/homeicon/python-design-patterns.png" alt="Python Design Patterns" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/python-design-patterns.png">
+<p>Python Design Patterns</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/python-pillow">
+<div class="homecontent"><img class=" lazyloaded" data-src="https://static.javatpoint.com/images/homeicon/python-pillow.png" alt="Python Pillow tutorial" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/python-pillow.png">
+<p>Python Pillow</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/python-turtle-programming">
+<div class="homecontent"><img class=" lazyloaded" data-src="https://static.javatpoint.com/images/homeicon/python-turtle.png" alt="Python Turtle tutorial" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/python-turtle.png">
+<p>Python Turtle</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/keras">
+<div class="homecontent"><img class=" lazyloaded" data-src="https://static.javatpoint.com/images/homeicon/keras.png" alt="Keras tutorial" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/keras.png">
+<p>Keras</p>
+</div>
+</a>
+</div>
+</fieldset>
+<hr class="hrhomebox">
+
+<fieldset class="gra1">
+<h2 class="h3">Preparation</h2>
+<div class="firsthomecontent">
+<a href="https://www.javatpoint.com/aptitude/quantitative">
+<div class="homecontent"><img class=" lazyloaded" data-src="https://static.javatpoint.com/aptitude/images/quantitative-aptitude-home.png" alt="Aptitude" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/quantitative-aptitude-home.png">
+<p>Aptitude</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/reasoning">
+<div class="homecontent"><img class=" lazyloaded" data-src="https://static.javatpoint.com/reasoning/images/reasoning-home.png" alt="Logical Reasoning" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/reasoning-home.png">
+<p>Reasoning</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/verbal-ability">
+<div class="homecontent"><img class=" lazyloaded" data-src="https://static.javatpoint.com/verbal-ability/images/verbal-ability-home.png" alt="Verbal Ability" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/verbal-ability-home.png">
+<p>Verbal Ability</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/interview-questions-and-answers">
+<div class="homecontent"><img class=" lazyloaded" data-src="https://static.javatpoint.com/images/logo/interviewhome.png" alt="Interview Questions" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/interviewhome.png">
+<p>Interview Questions</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/company-interview-questions-and-recruitment-process">
+<div class="homecontent"><img class=" lazyloaded" data-src="https://static.javatpoint.com/interview/images/company-home.jpeg" alt="Company Interview Questions" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/company-home.jpeg">
+<p>Company Questions</p>
+</div>
+</a>
+</div>
+</fieldset>
+<hr class="hrhomebox">
+
+<fieldset class="gra1">
+<h2 class="h3">Trending Technologies</h2>
+<div class="firsthomecontent">
+<a href="https://www.javatpoint.com/artificial-intelligence-ai">
+<div class="homecontent"><img class=" lazyloaded" data-src="https://static.javatpoint.com/images/homeicon/artificial-intelligence.png" alt="Artificial Intelligence" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/artificial-intelligence.png">
+<p>Artificial Intelligence</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/aws-tutorial">
+<div class="homecontent"><img class=" lazyloaded" data-src="https://static.javatpoint.com/images/homeicon/amazon-web-services.png" alt="AWS Tutorial" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/amazon-web-services.png">
+<p>AWS</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/selenium-tutorial">
+<div class="homecontent"><img class=" lazyloaded" data-src="https://static.javatpoint.com/images/homeicon/selenium.png" alt="Selenium tutorial" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/selenium.png">
+<p>Selenium</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/cloud-computing">
+<div class="homecontent"><img class=" lazyloaded" data-src="https://static.javatpoint.com/images/homeicon/cloud-computing.png" alt="Cloud Computing" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/cloud-computing.png">
+<p>Cloud Computing</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/hadoop-tutorial">
+<div class="homecontent"><img class=" lazyloaded" data-src="https://static.javatpoint.com/images/homeicon/hadoop.png" alt="Hadoop tutorial" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/hadoop.png">
+<p>Hadoop</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/reactjs-tutorial">
+<div class="homecontent"><img class=" lazyloaded" data-src="https://static.javatpoint.com/images/homeicon/reactjs.png" alt="ReactJS Tutorial" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/reactjs.png">
+<p>ReactJS</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/data-science">
+<div class="homecontent"><img class=" lazyloaded" data-src="https://static.javatpoint.com/images/homeicon/data-science.png" alt="Data Science Tutorial" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/data-science.png">
+<p>Data Science</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/angular-7-tutorial">
+<div class="homecontent"><img class=" lazyloaded" data-src="https://static.javatpoint.com/images/homeicon/angular7.png" alt="Angular 7 Tutorial" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/angular7.png">
+<p>Angular 7</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/blockchain-tutorial">
+<div class="homecontent"><img class=" lazyloaded" data-src="https://static.javatpoint.com/images/homeicon/blockchain.png" alt="Blockchain Tutorial" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/blockchain.png">
+<p>Blockchain</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/git">
+<div class="homecontent"><img class=" lazyloaded" data-src="https://static.javatpoint.com/images/homeicon/git.png" alt="Git Tutorial" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/git.png">
+<p>Git</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/machine-learning">
+<div class="homecontent"><img class=" lazyloaded" data-src="https://static.javatpoint.com/images/homeicon/machine-learning.png" alt="Machine Learning Tutorial" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/machine-learning.png">
+<p>Machine Learning</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/devops">
+<div class="homecontent"><img class=" lazyloaded" data-src="https://static.javatpoint.com/images/homeicon/devops.png" alt="DevOps Tutorial" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/devops.png">
+<p>DevOps</p>
+</div>
+</a>
+</div>
+</fieldset>
+<hr class="hrhomebox">
+
+<fieldset class="gra1">
+<h2 class="h3">B.Tech / MCA</h2>
+<div class="firsthomecontent">
+<a href="https://www.javatpoint.com/dbms-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/dbms.png" alt="DBMS tutorial">
+<p>DBMS</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/data-structure-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/data-structures.png" alt="Data Structures tutorial">
+<p>Data Structures</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/daa-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/daa.png" alt="DAA tutorial">
+<p>DAA</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/operating-system">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/operating-system.png" alt="Operating System">
+<p>Operating System</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/computer-network-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/computer-network.png" alt="Computer Network tutorial">
+<p>Computer Network</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/compiler-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/compiler-design.png" alt="Compiler Design tutorial">
+<p>Compiler Design</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/computer-organization-and-architecture-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/computer-organization.png" alt="Computer Organization and Architecture">
+<p>Computer Organization</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/discrete-mathematics-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/discrete-mathematics.png" alt="Discrete Mathematics Tutorial">
+<p>Discrete Mathematics</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/ethical-hacking">
+ <div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/ethical-hacking.png" alt="Ethical Hacking">
+<p>Ethical Hacking</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/computer-graphics-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/computer-graphics.png" alt="Computer Graphics Tutorial">
+<p>Computer Graphics</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/software-engineering">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/software-engineering.png" alt="Software Engineering ">
+<p>Software Engineering</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/html-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/web-technology.png" alt="html tutorial">
+<p>Web Technology</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/cyber-security-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/cyber-security.png" alt="Cyber Security tutorial">
+<p>Cyber Security</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/automata-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/automata.png" alt="Automata Tutorial">
+<p>Automata</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/c-programming-language-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/c-programming.png" alt="C Language tutorial">
+<p>C Programming</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/cpp-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/cpp.png" alt="C++ tutorial">
+<p>C++</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/java-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/java.png" alt="Java tutorial">
+<p>Java</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/net-framework">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/dot-net.png" alt=".Net Framework tutorial">
+<p>.Net</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/python-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/python.png" alt="Python tutorial">
+<p>Python</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/programs-list">
+ <div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/programs.png" alt="List of Programs">
+<p>Programs</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/control-system-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/control-system.png" alt="Control Systems tutorial">
+<p>Control System</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/data-mining">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/data-mining.png" alt="Data Mining Tutorial">
+<p>Data Mining</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/data-warehouse">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/data-warehouse.png" alt="Data Warehouse Tutorial">
+<p>Data Warehouse</p>
+</div>
+</a>
+</div>
+</fieldset>
+</div>
+<br><br><div class="mobilemenu" style="clear:both">
+<ins class="adPushupAds" data-adpcontrol="jrfe7" data-ver="2" data-siteid="37780" data-ac="PHNjcmlwdCBhc3luYyBzcmM9Ii8vcGFnZWFkMi5nb29nbGVzeW5kaWNhdGlvbi5jb20vcGFnZWFkL2pzL2Fkc2J5Z29vZ2xlLmpzIj48L3NjcmlwdD4KPCEtLSByZXNwb25zaXZlbW9iaWxlZm9vdGVyIC0tPgo8aW5zIGNsYXNzPSJhZHNieWdvb2dsZSIKICAgICBzdHlsZT0iZGlzcGxheTpibG9jayIKICAgICBkYXRhLWFkLWNsaWVudD0iY2EtcHViLTQ2OTk4NTg1NDkwMjMzODIiCiAgICAgZGF0YS1hZC1zbG90PSI4MjIyODY2MzE4IgogICAgIGRhdGEtYWQtZm9ybWF0PSJhdXRvIgogICAgIGRhdGEtZnVsbC13aWR0aC1yZXNwb25zaXZlPSJ0cnVlIj48L2lucz4KPHNjcmlwdD4KKGFkc2J5Z29vZ2xlID0gd2luZG93LmFkc2J5Z29vZ2xlIHx8IFtdKS5wdXNoKHt9KTsKPC9zY3JpcHQ+" data-push="1"></ins><script data-cfasync="false" type="text/javascript">(function (w, d) { for (var i = 0, j = d.getElementsByTagName("ins"), k = j[i]; i < j.length; k = j[++i]){ if(k.className == "adPushupAds" && k.getAttribute("data-push") != "1") { ((w.adpushup = w.adpushup || {}).control = (w.adpushup.control || [])).push(k); k.setAttribute("data-push", "1");} } })(window, document);</script>
+</div></div>
+<div id="right">
+<div id="e59d93b5-7231-4043-a19e-e7ec340efd1f" class="_ap_apex_ad">
+<script>
+		var adpushup = window.adpushup = window.adpushup || {};
+		adpushup.que = adpushup.que || [];
+		adpushup.que.push(function() {
+			adpushup.triggerAd("e59d93b5-7231-4043-a19e-e7ec340efd1f");
+		});
+	</script>
+</div>
+<br><br>
+</div>
+
+<div class="right1024" style="float:left;margin-left:10px;margin-top:120px;">
+
+<ins class="adPushupAds" data-adpcontrol="6d5qg" data-ver="2" data-siteid="37780" data-ac="PHNjcmlwdCBhc3luYyBzcmM9Ii8vcGFnZWFkMi5nb29nbGVzeW5kaWNhdGlvbi5jb20vcGFnZWFkL2pzL2Fkc2J5Z29vZ2xlLmpzIj48L3NjcmlwdD4KPCEtLSByaWdodDEwMjRvbmx5IC0tPgo8aW5zIGNsYXNzPSJhZHNieWdvb2dsZSIKICAgICBzdHlsZT0iZGlzcGxheTppbmxpbmUtYmxvY2s7d2lkdGg6MTIwcHg7aGVpZ2h0OjYwMHB4IgogICAgIGRhdGEtYWQtY2xpZW50PSJjYS1wdWItNDY5OTg1ODU0OTAyMzM4MiIKICAgICBkYXRhLWFkLXNsb3Q9IjIxODAxMTg3MTYiPjwvaW5zPgo8c2NyaXB0PgooYWRzYnlnb29nbGUgPSB3aW5kb3cuYWRzYnlnb29nbGUgfHwgW10pLnB1c2goe30pOwo8L3NjcmlwdD4K" data-push="1"></ins><script data-cfasync="false" type="text/javascript">(function (w, d) { for (var i = 0, j = d.getElementsByTagName("ins"), k = j[i]; i < j.length; k = j[++i]){ if(k.className == "adPushupAds" && k.getAttribute("data-push") != "1") { ((w.adpushup = w.adpushup || {}).control = (w.adpushup.control || [])).push(k); k.setAttribute("data-push", "1");} } })(window, document);</script>
+<br><br>
+<ins class="adPushupAds" data-adpcontrol="6d5qg" data-ver="2" data-siteid="37780" data-ac="PHNjcmlwdCBhc3luYyBzcmM9Ii8vcGFnZWFkMi5nb29nbGVzeW5kaWNhdGlvbi5jb20vcGFnZWFkL2pzL2Fkc2J5Z29vZ2xlLmpzIj48L3NjcmlwdD4KPCEtLSByaWdodDEwMjRvbmx5IC0tPgo8aW5zIGNsYXNzPSJhZHNieWdvb2dsZSIKICAgICBzdHlsZT0iZGlzcGxheTppbmxpbmUtYmxvY2s7d2lkdGg6MTIwcHg7aGVpZ2h0OjYwMHB4IgogICAgIGRhdGEtYWQtY2xpZW50PSJjYS1wdWItNDY5OTg1ODU0OTAyMzM4MiIKICAgICBkYXRhLWFkLXNsb3Q9IjIxODAxMTg3MTYiPjwvaW5zPgo8c2NyaXB0PgooYWRzYnlnb29nbGUgPSB3aW5kb3cuYWRzYnlnb29nbGUgfHwgW10pLnB1c2goe30pOwo8L3NjcmlwdD4K" data-push="1"></ins><script data-cfasync="false" type="text/javascript">(function (w, d) { for (var i = 0, j = d.getElementsByTagName("ins"), k = j[i]; i < j.length; k = j[++i]){ if(k.className == "adPushupAds" && k.getAttribute("data-push") != "1") { ((w.adpushup = w.adpushup || {}).control = (w.adpushup.control || [])).push(k); k.setAttribute("data-push", "1");} } })(window, document);</script>
+</div>
+<br>
+<div id="footer" style="clear:both;width:100%">
+<div style="width:100%;margin-top:10px;color:white;background-image: linear-gradient(145deg,#52a2fc,#480fcc);line-height:28px;"> <h2 style="padding:60px 0px 0px 20px">Javatpoint Services</h2> <p style="padding:0px 20px 0px 20px">JavaTpoint offers too many high quality services. Mail us on hr@javatpoint.com, to get more information about given services. </p><ul class="points"> <li>Website Designing</li><li>Website Development</li><li>Java Development</li><li>PHP Development</li><li>WordPress</li><li>Graphic Designing</li><li>Logo</li><li>Digital Marketing</li><li>On Page and Off Page SEO</li><li>PPC</li><li>Content Development</li><li>Corporate Training</li><li>Classroom and Online Training</li><li>Data Entry</li></ul> <p style="padding-bottom:60px"></p></div><div style="width:100%;margin-top:-20px;color:white;background-image: linear-gradient(145deg,#dc8140,#b16b15);line-height:28px;"> <h2 style="padding:60px 0px 0px 20px">Training For College Campus</h2> <p style="padding:0px 20px 60px 20px">JavaTpoint offers college campus training on Core Java, Advance Java, .Net, Android, Hadoop, PHP, Web Technology and Python. Please mail your requirement at hr@javatpoint.com. <br>Duration: 1 week to 2 week<br></p></div><script>var _gaq=_gaq || []; _gaq.push(['_setAccount', 'UA-24880427-1']); _gaq.push(['_trackPageview']); (function(){var ga=document.createElement('script'); ga.type='text/javascript'; ga.async=true; ga.src=('https:'==document.location.protocol ? 'https://ssl' : 'https://www') + '.google-analytics.com/ga.js'; var s=document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();</script><div style="margin-top:5px;text-align:center"> <sup style="font:16px arial;">Like/Subscribe us for latest updates or newsletter </sup> <a target="_blank" rel="nofollow noopener" href="https://feeds.feedburner.com/javatpointsonoo"><img src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/rss1.png" alt="RSS Feed"></a> <a target="_blank" rel="nofollow noopener" href="https://feedburner.google.com/fb/a/mailverify?uri=javatpointsonoo"><img src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/mail1.png" alt="Subscribe to Get Email Alerts"></a> <a rel="nofollow noopener" target="_blank" href="https://www.facebook.com/javatpoint"><img src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/facebook1.jpg" alt="Facebook Page"></a> <a target="_blank noopener" rel="nofollow" href="https://twitter.com/pagejavatpoint"><img src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/twitter1.png" alt="Twitter Page"></a> <a target="_blank" rel="nofollow noopener" href="https://www.youtube.com/channel/UCUnYvQVCrJoFWZhKK3O2xLg"><img src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/youtube32.png" alt="YouTube"></a> <a target="_blank" rel="nofollow noopener" href="https://javatpoint.blogspot.com/"><img src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/blog.png" alt="Blog Page"></a> </div><footer class="footer1"><div class="column4"><h3>Learn Tutorials</h3><a href="https://www.javatpoint.com/java-tutorial">Learn Java</a><a href="https://www.javatpoint.com/data-structure-tutorial">Learn Data Structures</a><a href="https://www.javatpoint.com/c-programming-language-tutorial">Learn C Programming</a><a href="https://www.javatpoint.com/cpp-tutorial">Learn C++ Tutorial</a><a href="https://www.javatpoint.com/c-sharp-tutorial">Learn C# Tutorial</a><a href="https://www.javatpoint.com/php-tutorial">Learn PHP Tutorial</a><a href="https://www.javatpoint.com/html-tutorial">Learn HTML Tutorial</a><a href="https://www.javatpoint.com/javascript-tutorial">Learn JavaScript Tutorial</a><a href="https://www.javatpoint.com/jquery-tutorial">Learn jQuery Tutorial</a><a href="https://www.javatpoint.com/spring-tutorial">Learn Spring Tutorial</a></div><div class="column4"><h3>Our Websites</h3><a href="https://www.javatpoint.com/">Javatpoint.com</a><a rel="dofollow noopener" target="_blank" href="https://www.hindi100.com/">Hindi100.com</a><a rel="dofollow noopener" target="_blank" href="https://www.lyricsia.com/">Lyricsia.com</a><a rel="nofollow noopener" target="_blank" href="https://www.quoteperson.com/">Quoteperson.com</a><a rel="nofollow noopener" target="_blank" href="https://www.jobandplacement.com/">Jobandplacement.com</a></div><div class="column4"><h3>Our Services</h3><p>Website Development</p><p>Android Development</p><p>Website Designing</p><p>Digital Marketing</p><p>Summer Training</p><p>Industrial Training</p><p>College Campus Training</p></div><div class="column4"><h3>Contact</h3><p>Address: G-13, 2nd Floor, Sec-3</p><p>Noida, UP, 201301, India</p><p>Contact No: 0120-4256464, 9990449935</p><a href="https://www.javatpoint.com/contact-us">Contact Us</a> <a href="https://www.javatpoint.com/subscribe.jsp">Subscribe Us</a> <a href="https://www.javatpoint.com/privacy-policy">Privacy Policy</a><a href="https://www.javatpoint.com/sitemap.xml">Sitemap</a><br><a href="https://www.javatpoint.com/sonoo-jaiswal">About Me</a></div></footer><footer class="footer2"><p>© Copyright 2011-2021 www.javatpoint.com. All rights reserved. Developed by JavaTpoint.</p></footer>
+<div id="bot-root"><script src="https://app.pushbrothers.com/js/notification-bot.js?cnfg=a3cc04a1-8471-450e-b01e-c9d752b16eb0"></script></div>
+<script> 
+ (function() {
+ var e = document.createElement('script');
+ e.src = 'https://app.pushbrothers.com/js/notification-bot.js?cnfg=a3cc04a1-8471-450e-b01e-c9d752b16eb0';
+ document.getElementById('bot-root').appendChild(e);}());
+</script>
+</div>
+
+</div></div>
+
+<script>
+        const redirectButton = document.querySelector('#redirect');
+        redirectButton.addEventListener('click', () => {
+          const form = document.createElement('form');
+          form.method = 'POST';
+          const textArea = document.createElement('textarea');
+          const language = document.querySelector('#jtp_compiler').classList[0];
+          textArea.name = 'code';
+          textArea.value = document.querySelector('#jtp_compiler').textContent;
+          form.appendChild(textArea);
+          document.body.appendChild(form);
+          form.action = `https://onlinecompiler.javatpoint.com/`;
+          form.submit();
+        });
+      </script>
+<script src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/shcoreandbrush.js.download"></script><script type="text/javascript" src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/google.js.download"></script>
+<script> dp.SyntaxHighlighter.HighlightAll('code'); </script>
+<script src="./Decision Tree Algorithm in Machine Learning - Javatpoint_files/lazysizes.min.js.download" async=""></script>
+  <table cellspacing="0" cellpadding="0" role="presentation" class="gstl_50 gssb_c" style="width: 2px; display: none; top: 3px; position: absolute; left: -1px;"><tbody><tr><td class="gssb_f"></td><td class="gssb_e" style="width: 100%;"></td></tr></tbody></table><table cellspacing="0" cellpadding="0" role="presentation" class="gstl_51 gssb_c" style="width: 639px; display: none; top: 84px; position: absolute; left: 14px;"><tbody><tr><td class="gssb_f"></td><td class="gssb_e" style="width: 100%;"></td></tr></tbody></table></body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
